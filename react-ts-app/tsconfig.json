@@ -13,9 +13,9 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    //"noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "./src/**/*", "styled.d.ts"],
+  "include": ["src", "./src/**/*", ".eslintrc.json"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
