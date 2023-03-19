@@ -5,17 +5,27 @@ import { MemoryRouter } from 'react-router-dom';
 import { WrappedApp, App } from './App';
 
 describe('Basic App', () => {
-  it('Renders "Hello World"', () => {
-    // ARRANGE
+  it('Renders "Home"', () => {
     render(<WrappedApp />);
-    // ACT
-    // EXPECT
     expect(
       screen.getByRole('heading', {
         level: 1,
       })
-    ).toHaveTextContent('Hello World');
+    ).toHaveTextContent('Home');
   });
+
+  it('Renders "About Us" if on About Us page', () => {
+    render(
+      <MemoryRouter initialEntries={['/about']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+      })
+    ).toHaveTextContent('About Us');
+  })
 
   it('Renders "Not Found" if invalid path', () => {
     render(
