@@ -1,0 +1,19 @@
+.header {
+  color: #2d997c;
+}
+
+.active {
+  color: #06b97a;
+  font-size: 1.5rem;
+}
+
+.header-nav {
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+  justify-content: space-evenly;
+}
+
+.header-nav > a:hover {
+  color: #ff9ab0;
+}
