@@ -1,0 +1,28 @@
+.cards {
+  margin: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid gray;
+  padding: 10px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  border: 1px solid #06b97a;
+}
+
+.card-img {
+  box-shadow: 0 0 10px gray;
+  width: auto;
+  height: 200px;
+}
+
+.card-title {
+  font-weight: 600;
+}
