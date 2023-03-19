@@ -1,4 +1,5 @@
 import React from "react";
+import { Cards } from "../components/Cards/Cards";
 import { Header } from "../components/Header/Header";
 import SearchBar from "../components/Search/Search";
 
@@ -7,8 +8,9 @@ export class Home extends React.Component {
     return (
       <>
         <Header />
-        <h1>Home</h1>
+        <h1>Books</h1>
         <SearchBar />
+        <Cards />
       </>
     );
   }
