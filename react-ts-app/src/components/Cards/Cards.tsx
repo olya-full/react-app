@@ -2,6 +2,7 @@ import React from "react";
 
 import { IBook } from "../../types/types";
 import books from "../../../books";
+import "./Cards.css";
 
 export class Card extends React.Component<IBook> {
   constructor(props: IBook) {
@@ -29,7 +30,7 @@ export class Cards extends React.Component {
       <div className="cards">
         {books.map((book, index) => {
           return (
-            <div key={index}>
+            <div className="card" key={index}>
               <Card {...book} />
             </div>
           );

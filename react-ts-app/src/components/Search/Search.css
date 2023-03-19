@@ -1,5 +1,5 @@
 .home-search {
-  border: solid #06b97a 1px;
+  border: solid gray 1px;
   transition: 0.25s;
   height: 35px;
   width: 300px;
@@ -9,6 +9,7 @@
 
 .home-search:focus {
   outline: none;
+  border: solid #06b97a 1px;
   box-shadow: 0 0 3px #06b97a;
 }
 
