@@ -7,7 +7,6 @@ export class Home extends React.Component {
   render(): React.ReactNode {
     return (
       <>
-        <Header />
         <h1>Books</h1>
         <SearchBar />
         <Cards />

@@ -3,14 +3,18 @@ import "./App.css";
 import NotFound from "../../pages/404";
 import { Home } from "../../pages/Home";
 import { AboutUs } from "../../pages/About";
+import { Header } from "../Header/Header";
 
 export function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
