@@ -19,6 +19,9 @@ class Nav extends React.Component {
         <NavLink className="header-nav-item" to="/">
           Home
         </NavLink>
+        <NavLink className="header-nav-item" to="/form">
+          Form
+        </NavLink>
         <NavLink className="header-nav-item" to="/about">
           About Us
         </NavLink>

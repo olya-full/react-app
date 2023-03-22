@@ -1,6 +1,4 @@
-export interface IProps {
-
-}
+export type IEmptyProps = Record<string, never>
 
 export interface IInputValue {
   inputValue: string;
@@ -14,3 +12,4 @@ export interface IBook {
   desc: string;
   genre: string;
 }
+

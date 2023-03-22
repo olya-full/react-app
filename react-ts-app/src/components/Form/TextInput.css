@@ -1,0 +1,16 @@
+.form-text-input {
+  border: solid gray 1px;
+  transition: 0.25s;
+  height: 40px;
+  width: 400px;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.form-text-input:focus {
+  outline: none;
+  border: solid #06b97a 1px;
+  box-shadow: 0 0 3px #06b97a;
+}

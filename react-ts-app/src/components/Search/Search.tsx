@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
-import { IInputValue, IProps } from "../../types/types";
+import { IEmptyProps, IInputValue } from "../../types/types";
 import "./Search.css";
 
-export default class SearchBar extends React.Component<IProps, IInputValue> {
-  constructor(props: IProps) {
+export default class SearchBar extends React.Component<IEmptyProps, IInputValue> {
+  constructor(props: IEmptyProps) {
     super(props);
     this.state = {
       inputValue: this.displaySearchValue(),
