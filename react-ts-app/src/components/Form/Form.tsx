@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React from "react";
 
 import "./Form.css";
 import { DateInput } from "./DateInput";
@@ -8,23 +8,23 @@ import Button from "../Utils/Button";
 import { IEmptyProps, IErrorText } from "../../types/types";
 
 const ErrorElement = (props: IErrorText) => {
-  return (
-    <div className="form-error">{props.errorText}</div>
-  )
-}
+  return <div className="form-error">{props.errorText}</div>;
+};
 
-export class Form extends React.Component<IEmptyProps> {
+export class Form extends React.Component {
   textInputRef: React.RefObject<HTMLInputElement>;
+  dateInputRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props: IEmptyProps){
+  constructor(props: IEmptyProps) {
     super(props);
     this.textInputRef = React.createRef();
+    this.dateInputRef = React.createRef();
   }
 
-  handleSumbit = (event: FormEvent) => {
+  handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(this.textInputRef.current?.value)
-  }
+    console.log(this.textInputRef.current?.value);
+  };
 
   render() {
     return (
@@ -33,7 +33,7 @@ export class Form extends React.Component<IEmptyProps> {
           <TextInput ref={this.textInputRef} isError={null} />
         </div>
         <div>
-          <DateInput />
+          <DateInput ref={this.dateInputRef} isError={null}/>
         </div>
         <div>
           <Select />

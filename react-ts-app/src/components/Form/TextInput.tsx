@@ -4,36 +4,22 @@ import "./TextInput.css";
 import { IPropsError } from "../../types/types";
 import { ErrorElement } from "./Form";
 
+const TextInput = React.forwardRef(
+  (props: IPropsError, ref: React.ForwardedRef<HTMLInputElement>) => (
+    <>
+      <input
+        ref={ref}
+        className="form-text-input"
+        type="text"
+        placeholder="What's your favourite book?"
+      />
+      {props.isError === true ? (
+        <ErrorElement errorText="Make sure the field is filled in." />
+      ) : (
+        <ErrorElement />
+      )}
+    </>
+  )
+);
 
-
-
-const TextInput = React.forwardRef((props: IPropsError, ref: React.ForwardedRef<HTMLInputElement>) => (
-  <>
-    <input ref={ref} className="form-text-input" type="text" placeholder="What's your favourite book?" />
-    {props.isError === true ? <ErrorElement errorText="Make sure the field is filled in."/> : <ErrorElement />}
-  </>
-))
-
-/*
- {
-  isError: null | true | undefined;
-  textInputRef: React.RefObject<HTMLInputElement>;
-
-  constructor(props: IPropsError) {
-    super(props);
-    this.isError = props.isError;
-    this.textInputRef = React.createRef();
-  }
-
-  render() {
-
-    return (
-      <>
-        <input className="form-text-input" type="text" placeholder="What's your favourite book?" />
-        {this.isError === true ? <ErrorElement errorText="Make sure the field is filled in."/> : <ErrorElement />}
-      </>
-    );
-  }
-}
-*/
-export { TextInput }
+export { TextInput };
