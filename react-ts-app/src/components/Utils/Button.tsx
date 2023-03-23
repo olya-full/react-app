@@ -1,7 +1,6 @@
-interface IButtonProps {
-  buttonText: string;
-  buttonType: "button" | "submit" | "reset" | undefined;
-}
+import "./Button.css";
+import { IButtonProps } from "../../types/types";
+
 
 const Button = (props: IButtonProps) => {
   return (

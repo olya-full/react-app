@@ -13,3 +13,15 @@ export interface IBook {
   genre: string;
 }
 
+export interface IButtonProps {
+  buttonText: string;
+  buttonType: "button" | "submit" | "reset" | undefined;
+}
+
+export interface IPropsError {
+  isError?: null | true;
+}
+
+export interface IErrorText {
+  errorText?: string;
+}
