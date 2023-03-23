@@ -4,9 +4,10 @@ import "./Select.css";
 import { IPropsError } from "../../types/types";
 import { ErrorElement } from "./Form";
 
-const Select = React.forwardRef((props: IPropsError, ref:  React.ForwardedRef<HTMLSelectElement>) => (
-  <>
-    <select ref={ref} name="favouriteGenre" defaultValue="choose" className="form-select">
+const Select = React.forwardRef(
+  (props: IPropsError, ref: React.ForwardedRef<HTMLSelectElement>) => (
+    <>
+      <select ref={ref} name="favouriteGenre" defaultValue="choose" className="form-select">
         <option disabled value="choose">
           What is the genre of your favourite book?
         </option>
@@ -21,8 +22,8 @@ const Select = React.forwardRef((props: IPropsError, ref:  React.ForwardedRef<HT
       ) : (
         <ErrorElement />
       )}
-  </>
-))
- 
+    </>
+  )
+);
 
-export { Select }
+export { Select };
