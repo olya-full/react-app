@@ -14,16 +14,20 @@ const ErrorElement = (props: IErrorText) => {
 export class Form extends React.Component {
   textInputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
+  selectRef: React.RefObject<HTMLSelectElement>;
 
   constructor(props: IEmptyProps) {
     super(props);
     this.textInputRef = React.createRef();
     this.dateInputRef = React.createRef();
+    this.selectRef = React.createRef();
   }
 
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(this.textInputRef.current?.value);
+    console.log(this.textInputRef.current?.value, 
+      this.dateInputRef.current?.value, 
+      this.selectRef.current?.value);
   };
 
   render() {
@@ -36,7 +40,7 @@ export class Form extends React.Component {
           <DateInput ref={this.dateInputRef} isError={null}/>
         </div>
         <div>
-          <Select />
+          <Select ref={this.selectRef} isError={null}/>
         </div>
         <Button buttonText="Submit" buttonType="submit" />
       </form>
