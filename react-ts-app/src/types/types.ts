@@ -25,3 +25,12 @@ export interface IPropsError {
 export interface IErrorText {
   errorText?: string;
 }
+
+export interface IPropsRadioInput {
+  isError?: null | true;
+  forwardedRefs: React.RefObject<HTMLInputElement>[];
+}
+
+export interface IRadioInput {
+  (props: IPropsRadioInput): JSX.Element
+}

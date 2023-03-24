@@ -16,14 +16,18 @@ export class Form extends React.Component {
   textInputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
-  radioInputRef: React.RefObject<HTMLFieldSetElement>;
+  radioInputRefs: React.RefObject<HTMLInputElement>[];
 
   constructor(props: IEmptyProps) {
     super(props);
     this.textInputRef = React.createRef();
     this.dateInputRef = React.createRef();
     this.selectRef = React.createRef();
-    this.radioInputRef = React.createRef();
+    this.radioInputRefs = [
+      React.createRef<HTMLInputElement>(),
+      React.createRef<HTMLInputElement>(),
+      React.createRef<HTMLInputElement>(),
+    ];
   }
 
   handleSumbit = (event: React.FormEvent) => {
@@ -32,7 +36,9 @@ export class Form extends React.Component {
       this.textInputRef.current?.value,
       this.dateInputRef.current?.value,
       this.selectRef.current?.value,
-      this.radioInputRef.current?.children
+      this.radioInputRefs[0].current?.checked,
+      this.radioInputRefs[1].current?.checked,
+      this.radioInputRefs[2].current?.checked
     );
   };
 
@@ -49,7 +55,7 @@ export class Form extends React.Component {
           <Select ref={this.selectRef} isError={null} />
         </div>
         <div>
-          <RadioInput ref={this.radioInputRef} isError={null} />
+          <RadioInput forwardedRefs={this.radioInputRefs} isError={null} />
         </div>
         <div></div>
         <div></div>
