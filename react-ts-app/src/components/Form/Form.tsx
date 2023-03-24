@@ -7,6 +7,8 @@ import { Select } from "./Select";
 import Button from "../Utils/Button";
 import { IEmptyProps, IErrorText } from "../../types/types";
 import { RadioInput } from "./RadioInput";
+import { FileInput } from "./FileInput";
+import { CheckboxInput } from "./CheckboxInput";
 
 const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;
@@ -17,6 +19,8 @@ export class Form extends React.Component {
   dateInputRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
   radioInputRefs: React.RefObject<HTMLInputElement>[];
+  fileInputRef: React.RefObject<HTMLInputElement>;
+  checkboxInputRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: IEmptyProps) {
     super(props);
@@ -28,6 +32,8 @@ export class Form extends React.Component {
       React.createRef<HTMLInputElement>(),
       React.createRef<HTMLInputElement>(),
     ];
+    this.fileInputRef = React.createRef();
+    this.checkboxInputRef = React.createRef();
   }
 
   handleSumbit = (event: React.FormEvent) => {
@@ -38,7 +44,9 @@ export class Form extends React.Component {
       this.selectRef.current?.value,
       this.radioInputRefs[0].current?.checked,
       this.radioInputRefs[1].current?.checked,
-      this.radioInputRefs[2].current?.checked
+      this.radioInputRefs[2].current?.checked,
+      this.fileInputRef.current?.files![0],
+      this.checkboxInputRef.current?.checked
     );
   };
 
@@ -57,9 +65,13 @@ export class Form extends React.Component {
         <div>
           <RadioInput forwardedRefs={this.radioInputRefs} isError={null} />
         </div>
-        <div></div>
-        <div></div>
-        <Button buttonText="Submit" buttonType="submit" />
+        <div>
+          <FileInput forwardedRef={this.fileInputRef} isError={null} />
+        </div>
+        <div>
+          <CheckboxInput forwardedRef={this.checkboxInputRef} isError={null} />
+        </div>
+        <Button buttonText="Post it!" buttonType="submit" />
       </form>
     );
   }

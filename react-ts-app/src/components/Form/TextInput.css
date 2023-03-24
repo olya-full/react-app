@@ -9,7 +9,8 @@
   box-sizing: border-box;
 }
 
-.form-text-input:focus {
+.form-text-input:focus,
+.form-text-input:hover {
   outline: none;
   border: solid #06b97a 1px;
   box-shadow: 0 0 3px #06b97a;

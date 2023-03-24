@@ -31,6 +31,11 @@ export interface IPropsRadioInput {
   forwardedRefs: React.RefObject<HTMLInputElement>[];
 }
 
+export interface IPropsInput {
+  isError?: null | true;
+  forwardedRef: React.RefObject<HTMLInputElement>;
+}
+
 export interface IRadioInput {
   (props: IPropsRadioInput): JSX.Element
 }
