@@ -68,9 +68,7 @@ export class Form extends React.Component {
         <div>
           <FileInput forwardedRef={this.fileInputRef} isError={null} />
         </div>
-        <div>
-          <CheckboxInput forwardedRef={this.checkboxInputRef} isError={null} />
-        </div>
+        <CheckboxInput forwardedRef={this.checkboxInputRef} isError={null} />
         <Button buttonText="Post it!" buttonType="submit" />
       </form>
     );
