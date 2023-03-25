@@ -1,4 +1,5 @@
 import React from "react";
+import { CreatedCards } from "../components/CreatedCards/CreatedCards";
 import { Form } from "../components/Form/Form";
 import { IEmptyProps, IFormPageState, INewCard } from "../types/types";
 
@@ -13,10 +14,9 @@ export class FormPage extends React.Component {
   }
 
   renderCards = (newCard: INewCard) => {
-    console.log("new card created using state!");
     this.setState({
       cards: [...this.state.cards, newCard],
-    })
+    });
   };
 
   render(): React.ReactNode {
@@ -24,6 +24,7 @@ export class FormPage extends React.Component {
       <>
         <h1>Your Favourite Book</h1>
         <Form renderCards={this.renderCards} />
+        <CreatedCards cards={this.state.cards} />
       </>
     );
   }

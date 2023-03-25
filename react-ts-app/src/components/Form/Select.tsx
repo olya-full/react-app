@@ -15,7 +15,7 @@ const Select = React.forwardRef(
         <option value="Romance">Romance</option>
         <option value="Detective">Detective</option>
         <option value="Sci-fi">Science Fiction</option>
-        <option value="Other">Other</option>
+        <option value="Other Genre">Other Genre</option>
       </select>
       {props.isError === true ? (
         <ErrorElement errorText="Please pick your favourite genre." />

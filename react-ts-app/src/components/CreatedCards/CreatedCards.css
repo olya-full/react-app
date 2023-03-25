@@ -1,0 +1,34 @@
+.created-cards {
+  margin: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.created-card {
+  border: 1px solid gray;
+  padding: 10px;
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.created-card:hover {
+  transform: scale(1.05);
+  border: 1px solid #06b97a;
+}
+
+.created-card-cover {
+  box-shadow: 0 0 10px gray;
+  width: auto;
+  height: 100px;
+  max-width: 20vw;
+  overflow: hidden;
+}
+
+.created-card-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  max-width: 20vw;
+  overflow: hidden;
+}

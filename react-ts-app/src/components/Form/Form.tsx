@@ -22,6 +22,7 @@ export class Form extends React.Component<IFormProps> {
   radioInputRefs: React.RefObject<HTMLInputElement>[];
   fileInputRef: React.RefObject<HTMLInputElement>;
   checkboxInputRef: React.RefObject<HTMLInputElement>;
+  uniqueID: number;
 
   constructor(props: IFormProps) {
     super(props);
@@ -47,22 +48,12 @@ export class Form extends React.Component<IFormProps> {
     ];
     this.fileInputRef = React.createRef();
     this.checkboxInputRef = React.createRef();
+    this.uniqueID = 123456;
   }
 
-  validateForm = () => {
-    /*
-    this.setState({
-       errors: {
-        textInputError: null,
-        dateInputError: null,
-        selectError: null,
-        radioInputError: null,
-        fileInputError: null,
-        checkboxInputError: null,
-      },
-    })
-    */
+  clearForm = () => {};
 
+  validateForm = () => {
     const newCard: INewCard = {};
     const currentErrors = {
       textInputError: null,
@@ -95,7 +86,7 @@ export class Form extends React.Component<IFormProps> {
     }, "");
     popularity ? (newCard.popularity = popularity) : (currentErrors.radioInputError = true);
 
-    this.fileInputRef.current?.value
+    this.fileInputRef.current?.value && this.fileInputRef.current.files![0].type.startsWith("image")
       ? (newCard.cover = URL.createObjectURL(this.fileInputRef.current?.files![0]))
       : (currentErrors.fileInputError = true);
     this.checkboxInputRef.current?.checked ? "" : (currentErrors.checkboxInputError = true);
@@ -116,34 +107,15 @@ export class Form extends React.Component<IFormProps> {
 
     const newCard = this.validateForm();
 
-    if(!newCard) {
-      console.log("card is not further processed" ); return;
-    } 
+    if (!newCard) return;
 
     this.props.renderCards(newCard);
-
-    console.log(
-      /*
-      this.textInputRef.current?.value,
-      this.dateInputRef.current?.value,
-      this.selectRef.current?.value,
-      this.radioInputRefs[0].current?.checked,
-      this.radioInputRefs[0].current?.value,
-      this.radioInputRefs[1].current?.checked,
-      this.radioInputRefs[2].current?.checked,
-      this.checkboxInputRef.current?.checked
-      
-      "files",
-      this.fileInputRef.current?.files![0],
-      "value",
-      this.fileInputRef.current?.value
-      */
-    );
+    this.uniqueID++;
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSumbit} className="form-form">
+      <form onSubmit={this.handleSumbit} className="form-form" key={this.uniqueID}>
         <div>
           <TextInput ref={this.textInputRef} isError={this.state.errors.textInputError} />
         </div>
