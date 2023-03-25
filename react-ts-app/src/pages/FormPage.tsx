@@ -13,7 +13,10 @@ export class FormPage extends React.Component {
   }
 
   renderCards = (newCard: INewCard) => {
-    console.log("new card created using state!")
+    console.log("new card created using state!");
+    this.setState({
+      cards: [...this.state.cards, newCard],
+    })
   };
 
   render(): React.ReactNode {

@@ -73,38 +73,54 @@ export class Form extends React.Component<IFormProps> {
       checkboxInputError: null,
     } as typeof this.state.errors;
 
-    this.textInputRef.current?.value ? newCard.title = this.textInputRef.current?.value : currentErrors.textInputError = true;
-    this.dateInputRef.current?.value ? newCard.year = this.dateInputRef.current?.value : currentErrors.dateInputError = true;
-    this.selectRef.current?.value !== "choose" ? newCard.genre = this.selectRef.current?.value : currentErrors.selectError = true;
+    this.textInputRef.current?.value
+      ? (newCard.title = this.textInputRef.current?.value)
+      : (currentErrors.textInputError = true);
+    this.dateInputRef.current?.value
+      ? (newCard.year = new Date(this.dateInputRef.current?.value).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }))
+      : (currentErrors.dateInputError = true);
+    this.selectRef.current?.value !== "choose"
+      ? (newCard.genre = this.selectRef.current?.value)
+      : (currentErrors.selectError = true);
 
     const popularity = this.radioInputRefs.reduce((prev, next) => {
       if (next.current?.checked) {
         prev = next.current.value;
-      } 
+      }
       return prev;
-    }, "")
-    popularity ? newCard.popularity = popularity : currentErrors.radioInputError = true;
+    }, "");
+    popularity ? (newCard.popularity = popularity) : (currentErrors.radioInputError = true);
 
-    this.fileInputRef.current?.value ? newCard.cover = URL.createObjectURL(this.fileInputRef.current?.files![0]) : currentErrors.fileInputError = true;
-    this.checkboxInputRef.current?.checked ? "" : currentErrors.checkboxInputError = true;
+    this.fileInputRef.current?.value
+      ? (newCard.cover = URL.createObjectURL(this.fileInputRef.current?.files![0]))
+      : (currentErrors.fileInputError = true);
+    this.checkboxInputRef.current?.checked ? "" : (currentErrors.checkboxInputError = true);
 
     this.setState({
       errors: currentErrors,
-    })
+    });
 
+    if (Object.values(currentErrors).find((err) => err === true)) {
+      return null;
+    }
 
-
-
-
-
-    return null;
-  }
+    return newCard;
+  };
 
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    this.validateForm();
-    //const newCard = this.validateForm();
+    const newCard = this.validateForm();
+
+    if(!newCard) {
+      console.log("card is not further processed" ); return;
+    } 
+
+    this.props.renderCards(newCard);
 
     console.log(
       /*
@@ -116,20 +132,13 @@ export class Form extends React.Component<IFormProps> {
       this.radioInputRefs[1].current?.checked,
       this.radioInputRefs[2].current?.checked,
       this.checkboxInputRef.current?.checked
+      
+      "files",
+      this.fileInputRef.current?.files![0],
+      "value",
+      this.fileInputRef.current?.value
       */
-      "files", this.fileInputRef.current?.files![0],
-      "value", this.fileInputRef.current?.value,
-    ); 
-
-    this.props.renderCards({
-      title: "meow1",
-      year: "meow2",
-      genre: "meow3",
-      popularity: "meow4",
-      cover: "meow5",
-    });
-
-    //if (!newCard) return;
+    );
   };
 
   render() {
@@ -145,12 +154,18 @@ export class Form extends React.Component<IFormProps> {
           <Select ref={this.selectRef} isError={this.state.errors.selectError} />
         </div>
         <div>
-          <RadioInput forwardedRefs={this.radioInputRefs} isError={this.state.errors.radioInputError} />
+          <RadioInput
+            forwardedRefs={this.radioInputRefs}
+            isError={this.state.errors.radioInputError}
+          />
         </div>
         <div>
           <FileInput forwardedRef={this.fileInputRef} isError={this.state.errors.fileInputError} />
         </div>
-        <CheckboxInput forwardedRef={this.checkboxInputRef} isError={this.state.errors.checkboxInputError} />
+        <CheckboxInput
+          forwardedRef={this.checkboxInputRef}
+          isError={this.state.errors.checkboxInputError}
+        />
         <Button buttonText="Post it!" buttonType="submit" />
       </form>
     );
