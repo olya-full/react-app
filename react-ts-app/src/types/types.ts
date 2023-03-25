@@ -39,3 +39,30 @@ export interface IPropsInput {
 export interface IRadioInput {
   (props: IPropsRadioInput): JSX.Element
 }
+
+export interface INewCard {
+  title?: string;
+  year?: string;
+  genre?: string;
+  popularity?: string;
+  cover?: string;
+}
+
+export interface IFormPageState {
+  cards: Array<INewCard>;
+}
+
+export interface IFormProps {
+  renderCards: (newCard: INewCard) => void;
+}
+
+export interface IFormState {
+  errors: {
+    textInputError: true | null;
+    dateInputError: true | null;
+    selectError: true | null;
+    radioInputError: true | null;
+    fileInputError: true | null;
+    checkboxInputError: true | null;
+  };
+}

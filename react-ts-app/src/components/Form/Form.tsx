@@ -5,30 +5,14 @@ import { DateInput } from "./DateInput";
 import { TextInput } from "./TextInput";
 import { Select } from "./Select";
 import Button from "../Utils/Button";
-import { IErrorText } from "../../types/types";
+import { IErrorText, IFormProps, IFormState, INewCard } from "../../types/types";
 import { RadioInput } from "./RadioInput";
 import { FileInput } from "./FileInput";
 import { CheckboxInput } from "./CheckboxInput";
-import { INewCard } from "../../pages/FormPage";
 
 const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;
 };
-
-interface IFormProps {
-  renderCards: (newCard: INewCard) => void;
-}
-
-interface IFormState {
-  errors: {
-    textInputError: true | null;
-    dateInputError: true | null;
-    selectError: true | null;
-    radioInputError: true | null;
-    fileInputError: true | null;
-    checkboxInputError: true | null;
-  };
-}
 
 export class Form extends React.Component<IFormProps> {
   state: IFormState;
@@ -67,7 +51,7 @@ export class Form extends React.Component<IFormProps> {
 
   validateForm = () => {
     this.setState({
-      errors: {
+       errors: {
         textInputError: null,
         dateInputError: null,
         selectError: null,
@@ -77,7 +61,7 @@ export class Form extends React.Component<IFormProps> {
       },
     })
 
-    const newCard = {};
+    const newCard: INewCard = {};
     const currentErrors = {};
 
 
