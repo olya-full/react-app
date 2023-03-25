@@ -50,6 +50,7 @@ export class Form extends React.Component<IFormProps> {
   }
 
   validateForm = () => {
+    /*
     this.setState({
        errors: {
         textInputError: null,
@@ -60,9 +61,39 @@ export class Form extends React.Component<IFormProps> {
         checkboxInputError: null,
       },
     })
+    */
 
     const newCard: INewCard = {};
-    const currentErrors = {};
+    const currentErrors = {
+      textInputError: null,
+      dateInputError: null,
+      selectError: null,
+      radioInputError: null,
+      fileInputError: null,
+      checkboxInputError: null,
+    } as typeof this.state.errors;
+
+    this.textInputRef.current?.value ? newCard.title = this.textInputRef.current?.value : currentErrors.textInputError = true;
+    this.dateInputRef.current?.value ? newCard.year = this.dateInputRef.current?.value : currentErrors.dateInputError = true;
+    this.selectRef.current?.value !== "choose" ? newCard.genre = this.selectRef.current?.value : currentErrors.selectError = true;
+
+    const popularity = this.radioInputRefs.reduce((prev, next) => {
+      if (next.current?.checked) {
+        prev = next.current.value;
+      } 
+      return prev;
+    }, "")
+    popularity ? newCard.popularity = popularity : currentErrors.radioInputError = true;
+
+    this.fileInputRef.current?.value ? newCard.cover = URL.createObjectURL(this.fileInputRef.current?.files![0]) : currentErrors.fileInputError = true;
+    this.checkboxInputRef.current?.checked ? "" : currentErrors.checkboxInputError = true;
+
+    this.setState({
+      errors: currentErrors,
+    })
+
+
+
 
 
 
@@ -72,12 +103,11 @@ export class Form extends React.Component<IFormProps> {
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const newCard = this.validateForm();
-
-
-    
+    this.validateForm();
+    //const newCard = this.validateForm();
 
     console.log(
+      /*
       this.textInputRef.current?.value,
       this.dateInputRef.current?.value,
       this.selectRef.current?.value,
@@ -85,10 +115,11 @@ export class Form extends React.Component<IFormProps> {
       this.radioInputRefs[0].current?.value,
       this.radioInputRefs[1].current?.checked,
       this.radioInputRefs[2].current?.checked,
-      this.fileInputRef.current?.files![0],
-      this.fileInputRef.current?.value,
       this.checkboxInputRef.current?.checked
-    );
+      */
+      "files", this.fileInputRef.current?.files![0],
+      "value", this.fileInputRef.current?.value,
+    ); 
 
     this.props.renderCards({
       title: "meow1",
@@ -98,7 +129,7 @@ export class Form extends React.Component<IFormProps> {
       cover: "meow5",
     });
 
-    if (!newCard) return;
+    //if (!newCard) return;
   };
 
   render() {
