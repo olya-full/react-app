@@ -14,7 +14,7 @@ const TextInput = React.forwardRef(
         placeholder="What's your favourite book?"
       />
       {props.isError === true ? (
-        <ErrorElement errorText="Make sure the field is filled in." />
+        <ErrorElement errorText="Please make sure the field is filled in." />
       ) : (
         <ErrorElement />
       )}

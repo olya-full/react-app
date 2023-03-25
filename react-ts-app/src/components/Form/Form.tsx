@@ -21,12 +21,12 @@ interface IFormProps {
 
 interface IFormState {
   errors: {
-    textInputError?: true | null;
-    dateInputError?: true | null;
-    selectError?: true | null;
-    radioInputError?: true | null;
-    fileInputError?: true | null;
-    checkboxInputError?: true | null;
+    textInputError: true | null;
+    dateInputError: true | null;
+    selectError: true | null;
+    radioInputError: true | null;
+    fileInputError: true | null;
+    checkboxInputError: true | null;
   };
 }
 
@@ -43,7 +43,14 @@ export class Form extends React.Component<IFormProps> {
     super(props);
 
     this.state = {
-      errors: {},
+      errors: {
+        textInputError: null,
+        dateInputError: null,
+        selectError: null,
+        radioInputError: null,
+        fileInputError: null,
+        checkboxInputError: null,
+      },
     };
 
     this.textInputRef = React.createRef();
@@ -59,16 +66,30 @@ export class Form extends React.Component<IFormProps> {
   }
 
   validateForm = () => {
+    this.setState({
+      errors: {
+        textInputError: null,
+        dateInputError: null,
+        selectError: null,
+        radioInputError: null,
+        fileInputError: null,
+        checkboxInputError: null,
+      },
+    })
+
+    const newCard = {};
+    const currentErrors = {};
 
 
-    return "newCard";
+
+    return null;
   }
 
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
 
     const newCard = this.validateForm();
-    if (!newCard) return;
+
 
     
 
@@ -92,27 +113,29 @@ export class Form extends React.Component<IFormProps> {
       popularity: "meow4",
       cover: "meow5",
     });
+
+    if (!newCard) return;
   };
 
   render() {
     return (
       <form onSubmit={this.handleSumbit} className="form-form">
         <div>
-          <TextInput ref={this.textInputRef} isError={null} />
+          <TextInput ref={this.textInputRef} isError={this.state.errors.textInputError} />
         </div>
         <div>
-          <DateInput ref={this.dateInputRef} isError={null} />
+          <DateInput ref={this.dateInputRef} isError={this.state.errors.dateInputError} />
         </div>
         <div>
-          <Select ref={this.selectRef} isError={null} />
+          <Select ref={this.selectRef} isError={this.state.errors.selectError} />
         </div>
         <div>
-          <RadioInput forwardedRefs={this.radioInputRefs} isError={null} />
+          <RadioInput forwardedRefs={this.radioInputRefs} isError={this.state.errors.radioInputError} />
         </div>
         <div>
-          <FileInput forwardedRef={this.fileInputRef} isError={null} />
+          <FileInput forwardedRef={this.fileInputRef} isError={this.state.errors.fileInputError} />
         </div>
-        <CheckboxInput forwardedRef={this.checkboxInputRef} isError={null} />
+        <CheckboxInput forwardedRef={this.checkboxInputRef} isError={this.state.errors.checkboxInputError} />
         <Button buttonText="Post it!" buttonType="submit" />
       </form>
     );

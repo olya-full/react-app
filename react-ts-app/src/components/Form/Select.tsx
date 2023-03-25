@@ -18,7 +18,7 @@ const Select = React.forwardRef(
         <option value="Other">Other</option>
       </select>
       {props.isError === true ? (
-        <ErrorElement errorText="Make sure you pick your favourite genre." />
+        <ErrorElement errorText="Please pick your favourite genre." />
       ) : (
         <ErrorElement />
       )}

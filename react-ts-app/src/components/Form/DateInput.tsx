@@ -16,7 +16,7 @@ const DateInput = React.forwardRef(
         onBlur={(e) => (e.target.type = "text")}
       />
       {props.isError === true ? (
-        <ErrorElement errorText="Make sure the field is filled in." />
+        <ErrorElement errorText="Please make sure the field is filled in." />
       ) : (
         <ErrorElement />
       )}
