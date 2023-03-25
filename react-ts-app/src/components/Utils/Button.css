@@ -9,7 +9,7 @@
   transition: 0.25s;
   height: 40px;
   width: 200px;
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .button:hover {

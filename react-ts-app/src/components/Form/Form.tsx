@@ -5,16 +5,33 @@ import { DateInput } from "./DateInput";
 import { TextInput } from "./TextInput";
 import { Select } from "./Select";
 import Button from "../Utils/Button";
-import { IEmptyProps, IErrorText } from "../../types/types";
+import { IErrorText } from "../../types/types";
 import { RadioInput } from "./RadioInput";
 import { FileInput } from "./FileInput";
 import { CheckboxInput } from "./CheckboxInput";
+import { INewCard } from "../../pages/FormPage";
 
 const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;
 };
 
-export class Form extends React.Component {
+interface IFormProps {
+  renderCards: (newCard: INewCard) => void;
+}
+
+interface IFormState {
+  errors: {
+    textInputError?: true | null;
+    dateInputError?: true | null;
+    selectError?: true | null;
+    radioInputError?: true | null;
+    fileInputError?: true | null;
+    checkboxInputError?: true | null;
+  };
+}
+
+export class Form extends React.Component<IFormProps> {
+  state: IFormState;
   textInputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
@@ -22,8 +39,13 @@ export class Form extends React.Component {
   fileInputRef: React.RefObject<HTMLInputElement>;
   checkboxInputRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props: IEmptyProps) {
+  constructor(props: IFormProps) {
     super(props);
+
+    this.state = {
+      errors: {},
+    };
+
     this.textInputRef = React.createRef();
     this.dateInputRef = React.createRef();
     this.selectRef = React.createRef();
@@ -36,18 +58,40 @@ export class Form extends React.Component {
     this.checkboxInputRef = React.createRef();
   }
 
+  validateForm = () => {
+
+
+    return "newCard";
+  }
+
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    const newCard = this.validateForm();
+    if (!newCard) return;
+
+    
+
     console.log(
       this.textInputRef.current?.value,
       this.dateInputRef.current?.value,
       this.selectRef.current?.value,
       this.radioInputRefs[0].current?.checked,
+      this.radioInputRefs[0].current?.value,
       this.radioInputRefs[1].current?.checked,
       this.radioInputRefs[2].current?.checked,
       this.fileInputRef.current?.files![0],
+      this.fileInputRef.current?.value,
       this.checkboxInputRef.current?.checked
     );
+
+    this.props.renderCards({
+      title: "meow1",
+      year: "meow2",
+      genre: "meow3",
+      popularity: "meow4",
+      cover: "meow5",
+    });
   };
 
   render() {
