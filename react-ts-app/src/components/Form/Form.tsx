@@ -48,10 +48,8 @@ export class Form extends React.Component<IFormProps> {
     ];
     this.fileInputRef = React.createRef();
     this.checkboxInputRef = React.createRef();
-    this.uniqueID = 123456;
+    this.uniqueID = 123;
   }
-
-  clearForm = () => {};
 
   validateForm = () => {
     const newCard: INewCard = {};
@@ -104,7 +102,6 @@ export class Form extends React.Component<IFormProps> {
 
   handleSumbit = (event: React.FormEvent) => {
     event.preventDefault();
-
     const newCard = this.validateForm();
 
     if (!newCard) return;

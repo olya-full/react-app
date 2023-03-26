@@ -1,0 +1,26 @@
+.popup-container {
+  display: flex;
+  border: 1px solid #ff9ab0;
+  background-color: #06b97a;
+  height: 200px;
+  width: 500px;
+  border-radius: 10px;
+  padding: 1px 15px;
+  font: inherit;
+  box-sizing: border-box;
+  transition: 0.25s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 10;
+}
+
+.popup-text {
+  margin: auto;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}

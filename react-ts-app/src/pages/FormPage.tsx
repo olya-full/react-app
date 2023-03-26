@@ -1,6 +1,7 @@
 import React from "react";
 import { CreatedCards } from "../components/CreatedCards/CreatedCards";
 import { Form } from "../components/Form/Form";
+import { PopUp } from "../components/Utils/PopUp";
 import { IEmptyProps, IFormPageState, INewCard } from "../types/types";
 
 export class FormPage extends React.Component {
@@ -10,12 +11,22 @@ export class FormPage extends React.Component {
     super(props);
     this.state = {
       cards: [],
+      showPopup: false,
     };
   }
+
+  togglePopup = () => {
+    setTimeout(() => {
+      this.setState({
+        showPopup: !this.state.showPopup,
+      });
+    }, 1500);
+  };
 
   renderCards = (newCard: INewCard) => {
     this.setState({
       cards: [...this.state.cards, newCard],
+      showPopup: true,
     });
   };
 
@@ -24,6 +35,9 @@ export class FormPage extends React.Component {
       <>
         <h1>Your Favourite Book</h1>
         <Form renderCards={this.renderCards} />
+        {this.state.showPopup ? (
+          <PopUp popUpText="Your input has beed saved!" popUpFunc={this.togglePopup} />
+        ) : null}
         <CreatedCards cards={this.state.cards} />
       </>
     );

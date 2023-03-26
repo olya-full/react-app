@@ -50,6 +50,7 @@ export interface INewCard {
 
 export interface IFormPageState {
   cards: Array<INewCard>;
+  showPopup: boolean;
 }
 
 export interface IFormProps {

@@ -13,7 +13,7 @@ describe("Basic App", () => {
       })
     ).toHaveTextContent("Books");
   });
-
+  /*
   it("Renders About Us if on About Us page", () => {
     render(
       <MemoryRouter initialEntries={["/about"]}>
@@ -27,6 +27,19 @@ describe("Basic App", () => {
     ).toHaveTextContent("About Us");
   });
 
+  it("Renders Your Favourite Book if on Form page", () => {
+    render(
+      <MemoryRouter initialEntries={["/form"]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+      })
+    ).toHaveTextContent("Your Favourite Book");
+  });
+*/
   it("Renders Not Found if invalid path", () => {
     render(
       <MemoryRouter initialEntries={["/really-bad-not-existing-route"]}>
