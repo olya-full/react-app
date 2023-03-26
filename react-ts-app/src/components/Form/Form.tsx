@@ -4,11 +4,11 @@ import "./Form.css";
 import { DateInput } from "./DateInput";
 import { TextInput } from "./TextInput";
 import { Select } from "./Select";
-import Button from "../Utils/Button";
 import { IErrorText, IFormProps, IFormState, INewCard } from "../../types/types";
 import { RadioInput } from "./RadioInput";
 import { FileInput } from "./FileInput";
 import { CheckboxInput } from "./CheckboxInput";
+import Button from "../Utils/Button/Button";
 
 const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;

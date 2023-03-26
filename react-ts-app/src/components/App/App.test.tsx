@@ -13,7 +13,7 @@ describe("Basic App", () => {
       })
     ).toHaveTextContent("Books");
   });
-  /*
+
   it("Renders About Us if on About Us page", () => {
     render(
       <MemoryRouter initialEntries={["/about"]}>
@@ -39,7 +39,7 @@ describe("Basic App", () => {
       })
     ).toHaveTextContent("Your Favourite Book");
   });
-*/
+
   it("Renders Not Found if invalid path", () => {
     render(
       <MemoryRouter initialEntries={["/really-bad-not-existing-route"]}>

@@ -7,7 +7,7 @@ const CreatedCard = (props: INewCard) => (
     <div className="created-card-img-wrap">
       <img className="created-card-cover" alt="Book cover." src={props.cover} />
     </div>
-    <div className="created-card-year">Read in {props.year}</div>
+    <div className="created-card-year">Read on {props.year}</div>
     <div className="created-card-genre">{props.genre}</div>
     <div className="created-card-popularity">{props.popularity}</div>
   </>

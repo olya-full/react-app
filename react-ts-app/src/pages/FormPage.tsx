@@ -1,7 +1,8 @@
 import React from "react";
+
 import { CreatedCards } from "../components/CreatedCards/CreatedCards";
 import { Form } from "../components/Form/Form";
-import { PopUp } from "../components/Utils/PopUp";
+import { PopUp } from "../components/Utils/PopUp/PopUp";
 import { IEmptyProps, IFormPageState, INewCard } from "../types/types";
 
 export class FormPage extends React.Component {
@@ -16,11 +17,13 @@ export class FormPage extends React.Component {
   }
 
   togglePopup = () => {
-    setTimeout(() => {
-      this.setState({
-        showPopup: !this.state.showPopup,
-      });
-    }, 1500);
+    if (this.state.showPopup === true) {
+      setTimeout(() => {
+        this.setState({
+          showPopup: false,
+        });
+      }, 1500);
+    }
   };
 
   renderCards = (newCard: INewCard) => {
