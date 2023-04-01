@@ -9,9 +9,12 @@ export const SearchBar = () => {
     inputRef.current = inputValue;
   }, [inputValue]);
 
-  React.useEffect(() => () => {
-    localStorage.setItem("bestSearchValue", inputRef.current);
-  }, []);
+  React.useEffect(
+    () => () => {
+      localStorage.setItem("bestSearchValue", inputRef.current);
+    },
+    []
+  );
 
   const updateInputValue = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
