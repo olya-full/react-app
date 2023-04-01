@@ -7,16 +7,14 @@ interface IPopUpProps {
   popUpFunc?: () => void;
 }
 
-export class PopUp extends React.Component<IPopUpProps> {
-  componentDidMount() {
-    this.props.popUpFunc ? this.props.popUpFunc() : null;
-  }
+export const PopUp = (props: IPopUpProps) => {
+  React.useEffect(() => {
+    props.popUpFunc ? props.popUpFunc() : null;
+  });
 
-  render() {
-    return (
-      <div className="popup-container">
-        <div className="popup-text">{this.props.popUpText}</div>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="popup-container">
+      <div className="popup-text">{props.popUpText}</div>
+    </div>
+  );
+};
