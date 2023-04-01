@@ -7,7 +7,7 @@ export const Header = () => {
       <Nav />
     </div>
   );
-}
+};
 
 const Nav = () => {
   return (
@@ -23,4 +23,4 @@ const Nav = () => {
       </NavLink>
     </nav>
   );
-}
+};
