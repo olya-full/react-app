@@ -24,20 +24,6 @@ export interface IErrorText {
   errorText?: string;
 }
 
-export interface IPropsRadioInput {
-  isError?: null | true;
-  forwardedRefs: React.RefObject<HTMLInputElement>[];
-}
-
-export interface IPropsInput {
-  isError?: null | true;
-  forwardedRef: React.RefObject<HTMLInputElement>;
-}
-
-export interface IRadioInput {
-  (props: IPropsRadioInput): JSX.Element
-}
-
 export interface INewCard {
   title?: string;
   year?: string;
@@ -60,7 +46,7 @@ export interface IFormValues {
   dateInput: string;
   select: string;
   radioInput: string;
-  fileInput: string;
+  fileInput: FileList;
   checkboxInput: boolean;
 }
 

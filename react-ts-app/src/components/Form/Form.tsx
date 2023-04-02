@@ -34,8 +34,9 @@ export const Form = (props: IFormProps) => {
       }),
       genre: data.select,
       popularity: data.radioInput,
-      cover: data.fileInput,
+      cover: URL.createObjectURL(data.fileInput[0]),
     };
+
     props.renderCards(newCard);
 
     reset();
@@ -51,6 +52,12 @@ export const Form = (props: IFormProps) => {
       </div>
       <div>
         <Select register={register} required={true} isError={errors.select ? true : null} />
+      </div>
+      <div>
+        <RadioInput register={register} required={true} isError={errors.radioInput ? true : null} />
+      </div>
+      <div>
+        <FileInput register={register} required={true} isError={errors.fileInput ? true : null} />
       </div>
       <Button buttonText="Post it!" buttonType="submit" />
     </form>

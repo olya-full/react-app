@@ -1,8 +1,8 @@
 import "./RadioInput.css";
-import { IRadioInput } from "../../types/types";
 import { ErrorElement } from "./Form";
+import { IInputProps } from "../../types/types";
 
-const RadioInput: IRadioInput = (props) => {
+const RadioInput = ({ register, isError }: IInputProps) => {
   const radioOptions = ["Very popular book", "Moderately popular book", "Not so popular book"];
 
   return (
@@ -13,9 +13,8 @@ const RadioInput: IRadioInput = (props) => {
           return (
             <label key={i} className="fieldset-label">
               <input
-                ref={props.forwardedRefs[i]}
+                {...register("radioInput", { required: true })}
                 type="radio"
-                name="popularity"
                 className="fieldset-input"
                 value={option}
               />
@@ -24,7 +23,7 @@ const RadioInput: IRadioInput = (props) => {
           );
         })}
       </fieldset>
-      {props.isError === true ? (
+      {isError === true ? (
         <ErrorElement errorText="Please choose how popular this book is." />
       ) : (
         <ErrorElement />
