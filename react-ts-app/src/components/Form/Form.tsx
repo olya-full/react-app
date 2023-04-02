@@ -16,7 +16,7 @@ const ErrorElement = (props: IErrorText) => {
 };
 
 export interface IFormValues {
-  textInput: string; 
+  textInput: string;
   dateInput: string;
   select: string;
   radioInput: string;
@@ -24,10 +24,14 @@ export interface IFormValues {
   checkboxInput: boolean;
 }
 
-
 export const Form = (props: IFormProps) => {
-  const { register, formState: { errors }, handleSubmit, reset} = useForm<IFormValues>();
-  
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm<IFormValues>();
+
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
     console.log("DATA:", data);
 
@@ -37,22 +41,21 @@ export const Form = (props: IFormProps) => {
       genre: data.select,
       popularity: data.radioInput,
       cover: data.fileInput,
-    }
+    };
     props.renderCards(newCard);
-    
+
     reset();
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="form-form">
       <div>
-        <TextInput register={register} required isError={errors.textInput ? true : null}/>
+        <TextInput register={register} required={true} isError={errors.textInput ? true : null} />
       </div>
       <Button buttonText="Post it!" buttonType="submit" />
     </form>
-  )
-}
-
+  );
+};
 
 export class Form2 extends React.Component<IFormProps> {
   state: IFormState;
@@ -153,7 +156,6 @@ export class Form2 extends React.Component<IFormProps> {
   render() {
     return (
       <form onSubmit={this.handleSumbit} className="form-form" key={this.uniqueID}>
-
         <div>
           <DateInput ref={this.dateInputRef} isError={this.state.errors.dateInputError} />
         </div>

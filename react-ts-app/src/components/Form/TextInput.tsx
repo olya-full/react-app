@@ -1,9 +1,6 @@
-import React from "react";
 import { UseFormRegister } from "react-hook-form";
 
-
 import "./TextInput.css";
-import { IPropsError } from "../../types/types";
 import { ErrorElement, IFormValues } from "./Form";
 
 interface ITextInputProps {
@@ -12,12 +9,11 @@ interface ITextInputProps {
   isError?: null | true;
 }
 
-const TextInput = ( {register, required, isError}: ITextInputProps) => {
-
+const TextInput = ({ register, isError }: ITextInputProps) => {
   return (
     <>
       <input
-        {...register("textInput", {required: true})}
+        {...register("textInput", { required: true })}
         className="form-text-input"
         type="text"
         placeholder="What's your favourite book?"
@@ -28,26 +24,7 @@ const TextInput = ( {register, required, isError}: ITextInputProps) => {
         <ErrorElement />
       )}
     </>
-  )
-
-}
-
-const TextInput2 = React.forwardRef(
-  (props: IPropsError, ref: React.ForwardedRef<HTMLInputElement>) => (
-    <>
-      <input
-        ref={ref}
-        className="form-text-input"
-        type="text"
-        placeholder="What's your favourite book?"
-      />
-      {props.isError === true ? (
-        <ErrorElement errorText="Please make sure the field is filled in." />
-      ) : (
-        <ErrorElement />
-      )}
-    </>
-  )
-);
+  );
+};
 
 export { TextInput };
