@@ -37,7 +37,11 @@ export const Form = (props: IFormProps) => {
 
     const newCard: INewCard = {
       title: data.textInput,
-      year: data.dateInput,
+      year: new Date(data.dateInput).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
       genre: data.select,
       popularity: data.radioInput,
       cover: data.fileInput,
@@ -52,11 +56,14 @@ export const Form = (props: IFormProps) => {
       <div>
         <TextInput register={register} required={true} isError={errors.textInput ? true : null} />
       </div>
+      <div>
+        <DateInput register={register} required={true} isError={errors.dateInput ? true : null}/>
+      </div>
       <Button buttonText="Post it!" buttonType="submit" />
     </form>
   );
 };
-
+/*
 export class Form2 extends React.Component<IFormProps> {
   state: IFormState;
   textInputRef: React.RefObject<HTMLInputElement>;
@@ -180,5 +187,5 @@ export class Form2 extends React.Component<IFormProps> {
     );
   }
 }
-
+*/
 export { ErrorElement };
