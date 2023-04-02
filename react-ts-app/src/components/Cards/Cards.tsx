@@ -2,7 +2,7 @@ import { IBook } from "../../types/types";
 import books from "../../../books";
 import "./Cards.css";
 
-export const Card = (props: IBook) => (
+const Card = (props: IBook) => (
   <>
     <div className="card-img-wrap">
       <img className="card-img" alt="Book cover." src={props.img} />

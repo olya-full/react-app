@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import "./Form.css";
 import { DateInput } from "./DateInput";
@@ -14,7 +15,46 @@ const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;
 };
 
-export class Form extends React.Component<IFormProps> {
+export interface IFormValues {
+  textInput: string; 
+  dateInput: string;
+  select: string;
+  radioInput: string;
+  fileInput: string;
+  checkboxInput: boolean;
+}
+
+
+export const Form = (props: IFormProps) => {
+  const { register, formState: { errors }, handleSubmit, reset} = useForm<IFormValues>();
+  
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    console.log("DATA:", data);
+
+    const newCard: INewCard = {
+      title: data.textInput,
+      year: data.dateInput,
+      genre: data.select,
+      popularity: data.radioInput,
+      cover: data.fileInput,
+    }
+    props.renderCards(newCard);
+    
+    reset();
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="form-form">
+      <div>
+        <TextInput register={register} required isError={errors.textInput ? true : null}/>
+      </div>
+      <Button buttonText="Post it!" buttonType="submit" />
+    </form>
+  )
+}
+
+
+export class Form2 extends React.Component<IFormProps> {
   state: IFormState;
   textInputRef: React.RefObject<HTMLInputElement>;
   dateInputRef: React.RefObject<HTMLInputElement>;
@@ -113,9 +153,7 @@ export class Form extends React.Component<IFormProps> {
   render() {
     return (
       <form onSubmit={this.handleSumbit} className="form-form" key={this.uniqueID}>
-        <div>
-          <TextInput ref={this.textInputRef} isError={this.state.errors.textInputError} />
-        </div>
+
         <div>
           <DateInput ref={this.dateInputRef} isError={this.state.errors.dateInputError} />
         </div>
