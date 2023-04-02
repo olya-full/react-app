@@ -1,25 +1,23 @@
-import React from "react";
-
 import "./TextInput.css";
-import { IPropsError } from "../../types/types";
 import { ErrorElement } from "./Form";
+import { IInputProps } from "../../types/types";
 
-const TextInput = React.forwardRef(
-  (props: IPropsError, ref: React.ForwardedRef<HTMLInputElement>) => (
+const TextInput = ({ register, isError }: IInputProps) => {
+  return (
     <>
       <input
-        ref={ref}
+        {...register("textInput", { required: true })}
         className="form-text-input"
         type="text"
         placeholder="What's your favourite book?"
       />
-      {props.isError === true ? (
+      {isError === true ? (
         <ErrorElement errorText="Please make sure the field is filled in." />
       ) : (
         <ErrorElement />
       )}
     </>
-  )
-);
+  );
+};
 
 export { TextInput };

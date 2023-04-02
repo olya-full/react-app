@@ -1,20 +1,24 @@
 import "./FileInput.css";
-import { IPropsInput } from "../../types/types";
+import { IInputProps } from "../../types/types";
 import { ErrorElement } from "./Form";
 
-export const FileInput = (props: IPropsInput) => (
+export const FileInput = ({ register, isError }: IInputProps) => (
   <>
     <label className="form-file-input-label">
       Please upload the cover of your favourite book.
       <input
-        ref={props.forwardedRef}
+        {...register("fileInput", {
+          validate: {
+            isChosen: (file) => file.length > 0,
+            isImage: (file) => file[0].type.startsWith("image"),
+          },
+        })}
         type="file"
         accept=".jpg, .jpeg, .png"
-        name="bookcover"
         className="form-file-input"
       />
     </label>
-    {props.isError === true ? (
+    {isError === true ? (
       <ErrorElement errorText="Please select the book cover in JP(E)G or PNG." />
     ) : (
       <ErrorElement />

@@ -1,47 +1,32 @@
 import React, { ChangeEvent } from "react";
-import { IEmptyProps, IInputValue } from "../../types/types";
 import "./Search.css";
 
-export default class SearchBar extends React.Component<IEmptyProps, IInputValue> {
-  constructor(props: IEmptyProps) {
-    super(props);
-    this.state = {
-      inputValue: this.displaySearchValue(),
-    };
-  }
+export const SearchBar = () => {
+  const [inputValue, setInputValue] = React.useState(localStorage.getItem("bestSearchValue") || "");
+  const inputRef = React.useRef(inputValue);
 
-  displaySearchValue() {
-    const storageItem = localStorage.getItem("bestSearchValue");
+  React.useEffect(() => {
+    inputRef.current = inputValue;
+  }, [inputValue]);
 
-    if (storageItem !== null) {
-      return storageItem;
-    } else {
-      return "";
-    }
-  }
+  React.useEffect(
+    () => () => {
+      localStorage.setItem("bestSearchValue", inputRef.current);
+    },
+    []
+  );
 
-  componentWillUnmount(): void {
-    localStorage.setItem("bestSearchValue", this.state.inputValue);
-  }
+  const updateInputValue = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
 
-  updateInputValue(event: ChangeEvent): void {
-    const currentTarget = event.target as HTMLInputElement;
-    const currentValue = currentTarget.value;
-
-    this.setState({
-      inputValue: currentValue,
-    });
-  }
-
-  render(): React.ReactNode {
-    return (
-      <input
-        type="search"
-        className="home-search"
-        placeholder="🔎︎"
-        value={this.state.inputValue}
-        onChange={(event) => this.updateInputValue(event)}
-      />
-    );
-  }
-}
+  return (
+    <input
+      type="search"
+      className="home-search"
+      placeholder="🔎︎"
+      value={inputValue}
+      onChange={(event) => updateInputValue(event)}
+    />
+  );
+};
