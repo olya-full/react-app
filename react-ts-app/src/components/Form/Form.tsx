@@ -20,10 +20,9 @@ export const Form = (props: IFormProps) => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<IFormValues>({reValidateMode: "onSubmit"});
+  } = useForm<IFormValues>({ reValidateMode: "onSubmit" });
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
-
     const newCard: INewCard = {
       title: data.textInput,
       year: new Date(data.dateInput).toLocaleDateString("en-US", {
