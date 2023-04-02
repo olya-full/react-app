@@ -1,22 +1,21 @@
+import { IInputProps } from "../../types/types";
 import "./CheckboxInput.css";
-import { IPropsInput } from "../../types/types";
 import { ErrorElement } from "./Form";
 
-export const CheckboxInput = (props: IPropsInput) => {
+export const CheckboxInput = ({ register, isError }: IInputProps) => {
   return (
     <div>
       <div className="form-checkbox">
         <label className="form-checkbox-input-label">
           Would you like to post your favourite book here?
           <input
-            ref={props.forwardedRef}
+            {...register("checkboxInput", { required: true })}
             type="checkbox"
-            name="postit"
             className="form-chechbox-input"
           />
         </label>
       </div>
-      {props.isError === true ? (
+      {isError === true ? (
         <ErrorElement errorText="Please agree to post your book." />
       ) : (
         <ErrorElement />
