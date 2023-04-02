@@ -1,14 +1,21 @@
-import React from "react";
-
 import "./Select.css";
-import { IPropsError } from "../../types/types";
 import { ErrorElement } from "./Form";
+import { IInputProps } from "../../types/types";
 
-const Select = React.forwardRef(
-  (props: IPropsError, ref: React.ForwardedRef<HTMLSelectElement>) => (
+const Select = ({ register, isError }: IInputProps) => {
+  return (
     <>
-      <select ref={ref} name="favouriteGenre" defaultValue="choose" className="form-select">
-        <option disabled value="choose">
+      <select
+        {...register("select", {
+          validate: {
+            notDefault: (value) => value.length > 0,
+          },
+        })}
+        name="select"
+        defaultValue=""
+        className="form-select"
+      >
+        <option disabled value="">
           What is the genre of your favourite book?
         </option>
         <option value="Fantasy">Fantasy</option>
@@ -17,13 +24,13 @@ const Select = React.forwardRef(
         <option value="Sci-fi">Science Fiction</option>
         <option value="Other Genre">Other Genre</option>
       </select>
-      {props.isError === true ? (
+      {isError === true ? (
         <ErrorElement errorText="Please pick your favourite genre." />
       ) : (
         <ErrorElement />
       )}
     </>
-  )
-);
+  );
+};
 
 export { Select };

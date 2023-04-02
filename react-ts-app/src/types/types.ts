@@ -1,3 +1,5 @@
+import { UseFormRegister } from "react-hook-form";
+
 export type IEmptyProps = Record<string, never>
 
 export interface IInputValue {
@@ -16,10 +18,6 @@ export interface IBook {
 export interface IButtonProps {
   buttonText: string;
   buttonType: "button" | "submit" | "reset" | undefined;
-}
-
-export interface IPropsError {
-  isError?: null | true;
 }
 
 export interface IErrorText {
@@ -57,13 +55,17 @@ export interface IFormProps {
   renderCards: (newCard: INewCard) => void;
 }
 
-export interface IFormState {
-  errors: {
-    textInputError: true | null;
-    dateInputError: true | null;
-    selectError: true | null;
-    radioInputError: true | null;
-    fileInputError: true | null;
-    checkboxInputError: true | null;
-  };
+export interface IFormValues {
+  textInput: string;
+  dateInput: string;
+  select: string;
+  radioInput: string;
+  fileInput: string;
+  checkboxInput: boolean;
+}
+
+export interface IInputProps {
+  register: UseFormRegister<IFormValues>;
+  required: boolean;
+  isError?: null | true;
 }

@@ -1,15 +1,8 @@
-import { UseFormRegister } from "react-hook-form";
-
 import "./TextInput.css";
-import { ErrorElement, IFormValues } from "./Form";
+import { ErrorElement } from "./Form";
+import { IInputProps } from "../../types/types";
 
-interface ITextInputProps {
-  register: UseFormRegister<IFormValues>;
-  required: boolean;
-  isError?: null | true;
-}
-
-const TextInput = ({ register, isError }: ITextInputProps) => {
+const TextInput = ({ register, isError }: IInputProps) => {
   return (
     <>
       <input

@@ -1,11 +1,10 @@
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import "./Form.css";
 import { DateInput } from "./DateInput";
 import { TextInput } from "./TextInput";
 import { Select } from "./Select";
-import { IErrorText, IFormProps, IFormState, INewCard } from "../../types/types";
+import { IErrorText, IFormProps, IFormValues, INewCard } from "../../types/types";
 import { RadioInput } from "./RadioInput";
 import { FileInput } from "./FileInput";
 import { CheckboxInput } from "./CheckboxInput";
@@ -14,15 +13,6 @@ import Button from "../Utils/Button/Button";
 const ErrorElement = (props: IErrorText) => {
   return <div className="form-error">{props.errorText}</div>;
 };
-
-export interface IFormValues {
-  textInput: string;
-  dateInput: string;
-  select: string;
-  radioInput: string;
-  fileInput: string;
-  checkboxInput: boolean;
-}
 
 export const Form = (props: IFormProps) => {
   const {
@@ -57,7 +47,10 @@ export const Form = (props: IFormProps) => {
         <TextInput register={register} required={true} isError={errors.textInput ? true : null} />
       </div>
       <div>
-        <DateInput register={register} required={true} isError={errors.dateInput ? true : null}/>
+        <DateInput register={register} required={true} isError={errors.dateInput ? true : null} />
+      </div>
+      <div>
+        <Select register={register} required={true} isError={errors.select ? true : null} />
       </div>
       <Button buttonText="Post it!" buttonType="submit" />
     </form>

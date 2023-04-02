@@ -1,18 +1,11 @@
-import { UseFormRegister } from "react-hook-form";
-
+import { IInputProps } from "../../types/types";
 import "./DateInput.css";
-import { ErrorElement, IFormValues } from "./Form";
+import { ErrorElement } from "./Form";
 
-interface IDateInputProps {
-  register: UseFormRegister<IFormValues>;
-  required: boolean;
-  isError?: null | true;
-}
-
-const DateInput = ({register, isError}: IDateInputProps) => (
+const DateInput = ({ register, isError }: IInputProps) => (
   <>
     <input
-      {...register("dateInput", {required: true})}
+      {...register("dateInput", { required: true })}
       className="form-date-input"
       type="text"
       placeholder="When was the last time you read it?"
@@ -25,6 +18,6 @@ const DateInput = ({register, isError}: IDateInputProps) => (
       <ErrorElement />
     )}
   </>
-)
+);
 
 export { DateInput };
