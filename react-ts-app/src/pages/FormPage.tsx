@@ -26,7 +26,7 @@ export const FormPage = () => {
     <>
       <h1>Your Favourite Book</h1>
       <Form renderCards={renderCards} />
-      {showPopup ? <PopUp popUpText="Your input has beed saved!" popUpFunc={togglePopup} /> : null}
+      {showPopup && <PopUp popUpText="Your input has beed saved!" popUpFunc={togglePopup} />}
       <CreatedCards cards={cards} />
     </>
   );
