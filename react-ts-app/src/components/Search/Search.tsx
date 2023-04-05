@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from "react";
 import "./Search.css";
+import Button from "../Utils/Button/Button";
 
 export const SearchBar = () => {
   const [inputValue, setInputValue] = React.useState(localStorage.getItem("bestSearchValue") || "");
@@ -21,12 +22,15 @@ export const SearchBar = () => {
   };
 
   return (
-    <input
-      type="search"
-      className="home-search"
-      placeholder="🔎︎"
-      value={inputValue}
-      onChange={(event) => updateInputValue(event)}
-    />
+    <form className="home-search-form">
+      <input
+        type="search"
+        className="home-search"
+        placeholder="🔎︎"
+        value={inputValue}
+        onChange={(event) => updateInputValue(event)}
+      />
+      <Button buttonText="Search" buttonType="submit" />
+    </form>
   );
 };

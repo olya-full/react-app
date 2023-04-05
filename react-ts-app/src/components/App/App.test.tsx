@@ -11,7 +11,7 @@ describe("Basic App", () => {
       screen.getByRole("heading", {
         level: 1,
       })
-    ).toHaveTextContent("Books");
+    ).toHaveTextContent("Picture Search");
   });
 
   it("Renders About Us if on About Us page", () => {
