@@ -11,7 +11,7 @@ const TextInput = ({ register, isError }: IInputProps) => {
         type="text"
         placeholder="What's your favourite book?"
       />
-      {isError === true ? (
+      {isError ? (
         <ErrorElement errorText="Please make sure the field is filled in." />
       ) : (
         <ErrorElement />

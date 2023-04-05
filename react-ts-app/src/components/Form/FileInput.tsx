@@ -18,7 +18,7 @@ export const FileInput = ({ register, isError }: IInputProps) => (
         className="form-file-input"
       />
     </label>
-    {isError === true ? (
+    {isError ? (
       <ErrorElement errorText="Please select the book cover in JP(E)G or PNG." />
     ) : (
       <ErrorElement />

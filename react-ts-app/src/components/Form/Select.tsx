@@ -24,11 +24,7 @@ const Select = ({ register, isError }: IInputProps) => {
         <option value="Sci-fi">Science Fiction</option>
         <option value="Other Genre">Other Genre</option>
       </select>
-      {isError === true ? (
-        <ErrorElement errorText="Please pick your favourite genre." />
-      ) : (
-        <ErrorElement />
-      )}
+      {isError ? <ErrorElement errorText="Please pick your favourite genre." /> : <ErrorElement />}
     </>
   );
 };

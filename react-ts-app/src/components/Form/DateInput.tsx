@@ -12,7 +12,7 @@ const DateInput = ({ register, isError }: IInputProps) => (
       onFocus={(e) => (e.target.type = "date")}
       onBlur={(e) => (e.target.type = "text")}
     />
-    {isError === true ? (
+    {isError ? (
       <ErrorElement errorText="Please make sure the field is filled in." />
     ) : (
       <ErrorElement />
