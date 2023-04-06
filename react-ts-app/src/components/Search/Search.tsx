@@ -1,10 +1,18 @@
 import React, { ChangeEvent } from "react";
 import "./Search.css";
 import Button from "../Utils/Button/Button";
-import { ISearchElemProps } from "../../types/types";
+import { IRequestParams, ISearchElemProps } from "../../types/types";
 
 export const SearchElem = (props: ISearchElemProps) => {
-  const apiEndpoint = "https://www.flickr.com/services/rest/";
+  const apiEndpoint = "https://www.flickr.com/services/rest/?";
+  const commonParams = {
+    api_key: "4b621c2314e1aacd9186e7425c899a6b",
+    per_page: "81",
+    page: "1",
+    format: "json",
+    nojsoncallback: "1",
+  };
+  const [hasLoaded, setHasLoaded] = React.useState(true);
   const [inputValue, setInputValue] = React.useState(localStorage.getItem("bestSearchValue") || "");
   const inputRef = React.useRef(inputValue);
 
@@ -12,14 +20,42 @@ export const SearchElem = (props: ISearchElemProps) => {
     inputRef.current = inputValue;
   }, [inputValue]);
 
-  React.useEffect(
-    () => () => {
-      localStorage.setItem("bestSearchValue", inputRef.current);
-    },
-    []
-  );
+  React.useEffect(() => {
+    getRecentReq();
+    return () => localStorage.setItem("bestSearchValue", inputRef.current);
+  }, []);
 
-  const sendSearchReq = async (text: string) => {};
+  const searchPhotoReq = async (text: string) => {
+    const searchParams: IRequestParams = structuredClone(commonParams);
+    searchParams.method = "flickr.photos.search";
+    searchParams.text = text;
+
+    const res = await fetch(
+      apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
+    );
+    return await res.json();
+  };
+
+  const getRecentReq = async () => {
+    const searchParams: IRequestParams = structuredClone(commonParams);
+    searchParams.method = "flickr.photos.getRecent";
+
+    const res = await fetch(
+      apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
+    );
+    console.log(await res.json());
+  };
+
+  const getInfoPhotoReq = async (id: string) => {
+    const searchParams: IRequestParams = structuredClone(commonParams);
+    searchParams.method = "flickr.photos.getInfo";
+    searchParams.photo_id = id;
+
+    const res = await fetch(
+      apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
+    );
+    console.log(await res.json());
+  };
 
   const handleSubmit = (text: string) => {
     const newSearch = [

@@ -68,3 +68,14 @@ export interface ISearchResult {
   author: string;
   location: string;
 }
+
+export interface IRequestParams {
+  method?: string;
+  text?: string;
+  photo_id?: string;
+  api_key: string;
+  per_page: string;
+  page: string;
+  format: string;
+  nojsoncallback: string;
+}

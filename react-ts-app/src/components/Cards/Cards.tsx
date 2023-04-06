@@ -16,10 +16,10 @@ const Card = (props: IBook) => (
 
 export const Cards = () => (
   <div className="cards">
-    {books.map((book, index) => {
+    {books.map((card, index) => {
       return (
         <div className="card" key={index}>
-          <Card {...book} />
+          <Card {...card} />
         </div>
       );
     })}
