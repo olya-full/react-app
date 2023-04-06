@@ -55,3 +55,16 @@ export interface IInputProps {
   required: boolean;
   isError?: null | true;
 }
+
+export interface ISearchElemProps {
+  renderResults: (result: ISearchResult[]) => void;
+}
+
+export interface ISearchResult {
+  id: string;
+  title: string;
+  imageUrl: string;
+  date: Date;
+  author: string;
+  location: string;
+}

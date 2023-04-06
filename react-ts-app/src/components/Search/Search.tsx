@@ -1,11 +1,7 @@
 import React, { ChangeEvent } from "react";
 import "./Search.css";
 import Button from "../Utils/Button/Button";
-import { ISearchResult } from "../../pages/HomePage";
-
-export interface ISearchElemProps {
-  renderResults: (result: ISearchResult[]) => void;
-}
+import { ISearchElemProps } from "../../types/types";
 
 export const SearchElem = (props: ISearchElemProps) => {
   const apiEndpoint = "https://www.flickr.com/services/rest/";
