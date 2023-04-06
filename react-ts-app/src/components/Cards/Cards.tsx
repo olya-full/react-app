@@ -1,24 +1,33 @@
-import { IBook } from "../../types/types";
-import books from "../../../books";
+import { ICardsProps, ISearchResult } from "../../types/types";
 import "./Cards.css";
 
-const Card = (props: IBook) => (
-  <>
-    <div className="card-img-wrap">
-      <img className="card-img" alt="Book cover." src={props.img} />
-    </div>
-    <div className="card-title">{props.title}</div>
-    <div className="card-author">Author: {props.author}</div>
-    <div className="card-year">{props.year}</div>
-    <div className="card-genre">Genre: {props.genre}</div>
-  </>
-);
+const Card = (props: ISearchResult) => {
+  const date = props.date
+    ? new Date(props.date * 1000).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : null;
 
-export const Cards = () => (
+  return (
+    <>
+      <div className="card-title">{props.title}</div>
+      <div className="card-img-wrap">
+        <img className="card-img" alt="Picture." src={props.imageUrl} />
+      </div>
+      <div className="card-date">Picture taken on {date && date}</div>
+      <div className="card-author">By {props.author}</div>
+      <div className="card-location">At {props.location}</div>
+    </>
+  );
+};
+
+export const Cards = (props: ICardsProps) => (
   <div className="cards">
-    {books.map((card, index) => {
+    {props.images.map((card) => {
       return (
-        <div className="card" key={index}>
+        <div className="card" key={card.id}>
           <Card {...card} />
         </div>
       );

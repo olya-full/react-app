@@ -1,13 +1,19 @@
 import React, { ChangeEvent } from "react";
 import "./Search.css";
 import Button from "../Utils/Button/Button";
-import { IRequestParams, ISearchElemProps } from "../../types/types";
+import {
+  IPhotosResponse,
+  IPhotosResponseJson,
+  IRequestParams,
+  ISearchElemProps,
+  ISearchResult,
+} from "../../types/types";
 
 export const SearchElem = (props: ISearchElemProps) => {
   const apiEndpoint = "https://www.flickr.com/services/rest/?";
   const commonParams = {
     api_key: "4b621c2314e1aacd9186e7425c899a6b",
-    per_page: "81",
+    per_page: "80",
     page: "1",
     format: "json",
     nojsoncallback: "1",
@@ -21,7 +27,8 @@ export const SearchElem = (props: ISearchElemProps) => {
   }, [inputValue]);
 
   React.useEffect(() => {
-    getRecentReq();
+    adaptResposeToCards(getRecentReq).then((data) => props.renderResults(data));
+
     return () => localStorage.setItem("bestSearchValue", inputRef.current);
   }, []);
 
@@ -30,7 +37,7 @@ export const SearchElem = (props: ISearchElemProps) => {
     searchParams.method = "flickr.photos.search";
     searchParams.text = text;
 
-    const res = await fetch(
+    const res: IPhotosResponse = await fetch(
       apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
     );
     return await res.json();
@@ -40,10 +47,10 @@ export const SearchElem = (props: ISearchElemProps) => {
     const searchParams: IRequestParams = structuredClone(commonParams);
     searchParams.method = "flickr.photos.getRecent";
 
-    const res = await fetch(
+    const res: IPhotosResponse = await fetch(
       apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
     );
-    console.log(await res.json());
+    return await res.json();
   };
 
   const getInfoPhotoReq = async (id: string) => {
@@ -57,6 +64,23 @@ export const SearchElem = (props: ISearchElemProps) => {
     console.log(await res.json());
   };
 
+  const adaptResposeToCards = async (func: (param?: string) => IPhotosResponseJson) => {
+    console.log("adapting");
+    const adaptedResult: ISearchResult[] = [];
+    await func().then((data) => {
+      data.photos.photo.forEach((item) => {
+        adaptedResult.push({
+          id: item.id,
+          title: item.title,
+          imageUrl: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`,
+        });
+      });
+    });
+
+    console.log(adaptedResult);
+    return adaptedResult;
+  };
+
   const handleSubmit = (text: string) => {
     const newSearch = [
       {
@@ -64,7 +88,7 @@ export const SearchElem = (props: ISearchElemProps) => {
         title: "SomeTitle",
         imageUrl:
           "https://sun9-8.userapi.com/impg/3flHO-BUQcdXG1hclYqaO6qQyQ3WjOPUEWJepw/0yf_I_4ODCE.jpg?size=130x87&quality=96&sign=d1f08d5b30fba524b3c6922e38b3e64a&c_uniq_tag=LYlKW0-Hk8jJNvyZh7q7CxjX-xTzaJToZa8LT3yhzjM&type=album",
-        date: new Date(1395660658),
+        date: 1395660658,
         author: "Some Author",
         location: "Berlin",
       },

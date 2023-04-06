@@ -14,7 +14,7 @@ export const Home = () => {
     <>
       <h1>Picture Search</h1>
       <SearchElem renderResults={renderSeachResults} />
-      <Cards />
+      {searchResults && <Cards images={searchResults} />}
     </>
   );
 };

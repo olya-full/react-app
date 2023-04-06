@@ -6,15 +6,6 @@ export interface IInputValue {
   inputValue: string;
 }
 
-export interface IBook {
-  title: string;
-  author: string;
-  img: string;
-  year: number;
-  desc: string;
-  genre: string;
-}
-
 export interface IButtonProps {
   buttonText: string;
   buttonType: "button" | "submit" | "reset" | undefined;
@@ -60,13 +51,17 @@ export interface ISearchElemProps {
   renderResults: (result: ISearchResult[]) => void;
 }
 
+export interface ICardsProps {
+  images: ISearchResult[];
+}
+
 export interface ISearchResult {
   id: string;
   title: string;
   imageUrl: string;
-  date: Date;
-  author: string;
-  location: string;
+  date?: EpochTimeStamp;
+  author?: string;
+  location?: string;
 }
 
 export interface IRequestParams {
@@ -78,4 +73,32 @@ export interface IRequestParams {
   page: string;
   format: string;
   nojsoncallback: string;
+}
+
+interface IPhoto {
+  id: string;
+  owner: string;
+  secret: string;
+  server: string;
+  farm: number;
+  title: string;
+  ispublic: number;
+  isfriend: number;
+  isfamily: number;
+}
+
+export type IPhotosResponseJson = Promise<{
+    photos: {
+      page: number;
+      pages: number;
+      perpage: number;
+      total: number;
+      photo: IPhoto[];
+    };
+    stat: string;
+  }>
+
+
+export interface IPhotosResponse {
+  json(): IPhotosResponseJson
 }
