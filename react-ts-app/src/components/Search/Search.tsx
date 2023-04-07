@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import "./Search.css";
 import Button from "../Utils/Button/Button";
 import {
@@ -17,6 +17,7 @@ export const SearchElem = (props: ISearchElemProps) => {
     page: "1",
     format: "json",
     nojsoncallback: "1",
+    safe_search: "1",
   };
   const [hasLoaded, setHasLoaded] = React.useState(true);
   const [inputValue, setInputValue] = React.useState(localStorage.getItem("bestSearchValue") || "");
@@ -32,7 +33,7 @@ export const SearchElem = (props: ISearchElemProps) => {
     return () => localStorage.setItem("bestSearchValue", inputRef.current);
   }, []);
 
-  const searchPhotoReq = async (text: string) => {
+  const searchPhotoReq: (text: string | undefined) => IPhotosResponseJson = async (text) => {
     const searchParams: IRequestParams = structuredClone(commonParams);
     searchParams.method = "flickr.photos.search";
     searchParams.text = text;
@@ -64,10 +65,13 @@ export const SearchElem = (props: ISearchElemProps) => {
     console.log(await res.json());
   };
 
-  const adaptResposeToCards = async (func: (param?: string) => IPhotosResponseJson) => {
+  const adaptResposeToCards = async (
+    func: (param?: string | undefined) => IPhotosResponseJson,
+    innerParam?: string | undefined
+  ) => {
     console.log("adapting");
     const adaptedResult: ISearchResult[] = [];
-    await func().then((data) => {
+    await func(innerParam).then((data) => {
       data.photos.photo.forEach((item) => {
         adaptedResult.push({
           id: item.id,
@@ -81,20 +85,11 @@ export const SearchElem = (props: ISearchElemProps) => {
     return adaptedResult;
   };
 
-  const handleSubmit = (text: string) => {
-    const newSearch = [
-      {
-        id: "123456",
-        title: "SomeTitle",
-        imageUrl:
-          "https://sun9-8.userapi.com/impg/3flHO-BUQcdXG1hclYqaO6qQyQ3WjOPUEWJepw/0yf_I_4ODCE.jpg?size=130x87&quality=96&sign=d1f08d5b30fba524b3c6922e38b3e64a&c_uniq_tag=LYlKW0-Hk8jJNvyZh7q7CxjX-xTzaJToZa8LT3yhzjM&type=album",
-        date: 1395660658,
-        author: "Some Author",
-        location: "Berlin",
-      },
-    ];
-
-    props.renderResults(newSearch);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    inputValue
+      ? adaptResposeToCards(searchPhotoReq, inputValue).then((data) => props.renderResults(data))
+      : adaptResposeToCards(getRecentReq).then((data) => props.renderResults(data));
   };
 
   const updateInputValue = (event: ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +97,7 @@ export const SearchElem = (props: ISearchElemProps) => {
   };
 
   return (
-    <form className="home-search-form">
+    <form className="home-search-form" onSubmit={(event) => handleSubmit(event)}>
       <input
         type="search"
         className="home-search"

@@ -12,13 +12,13 @@ const Card = (props: ISearchResult) => {
 
   return (
     <>
-      <div className="card-title">{props.title}</div>
+      <div className="card-title">{props.title || "Unnamed Picture"}</div>
       <div className="card-img-wrap">
         <img className="card-img" alt="Picture." src={props.imageUrl} />
       </div>
-      <div className="card-date">Picture taken on {date && date}</div>
-      <div className="card-author">By {props.author}</div>
-      <div className="card-location">At {props.location}</div>
+      {date && <div className="card-date">Picture taken on {date && date}</div>}
+      {props.author && <div className="card-author">By {props.author}</div>}
+      {props.location && <div className="card-location">At {props.location}</div>}
     </>
   );
 };
