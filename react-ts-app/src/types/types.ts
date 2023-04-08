@@ -53,13 +53,14 @@ export interface ISearchElemProps {
 
 export interface ICardsProps {
   images: ISearchResult[];
+  cardsFunc?: (photo: any) => void; 
 }
 
 export interface ISearchResult {
   id: string;
   title: string;
   imageUrl: string;
-  date?: EpochTimeStamp;
+  date?: string;
   author?: string;
   location?: string;
 }
@@ -101,4 +102,31 @@ export type IPhotosResponseJson = Promise<{
 
 export interface IPhotosResponse {
   json(): IPhotosResponseJson
+}
+
+export interface IPhotoResponse {
+  json(): Promise<IPhotoResponseJson>;
+}
+
+export interface IPhotoResponseJson {
+  photo: {
+    id: string;
+    server: string;
+    secret: string;
+    title: {
+      _content: string;
+    };
+    dates: {
+      posted: string;
+    };
+    owner: {
+      realname: string;
+      location: string;
+    }
+  };
+  stat: string;
+}
+
+export interface IUnsetMaxHeight{
+  maxheight?: "unset-max-height";
 }

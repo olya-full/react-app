@@ -7,6 +7,8 @@ import { AboutUs } from "../../pages/AboutPage";
 import { Header } from "../Header/Header";
 import { FormPage } from "../../pages/FormPage";
 
+export const apiEndpoint = "https://www.flickr.com/services/rest/?";
+
 export function App() {
   return (
     <>

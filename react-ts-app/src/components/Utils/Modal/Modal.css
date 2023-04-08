@@ -1,0 +1,38 @@
+.modal-inner-container {
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+  padding: 10px 5%;
+  border: 1px solid #06b97a;
+  background-color: white;
+  margin: auto;
+  z-index: 15;
+}
+
+.modal-outer-container {
+  display: flex;
+  justify-content: center;
+  background-color:rgb(6, 185, 122, 0.1);
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  transition: 0.25s;
+}
+
+.modal-cross-container {
+  height: 20px;
+}
+
+.modal-cross-wrap {
+  position: absolute;
+  right: 20px;
+  transition: 0.25s;
+  filter: brightness(0) invert(42%) sepia(39%) saturate(3380%) hue-rotate(133deg) brightness(105%) contrast(95%);
+}
+
+.modal-cross-wrap:hover {
+  cursor: pointer;
+  filter: brightness(0) invert(66%) sepia(18%) saturate(891%) hue-rotate(299deg) brightness(101%) contrast(109%);
+}

@@ -9,7 +9,7 @@ describe("Cards on the main page", () => {
         id: "123456",
         title: "SomeTitle",
         imageUrl: "https://live.staticflickr.com/65535/52800573126_f91a479fd6.jpg",
-        date: 1395660658,
+        date: "1395660658",
         author: "Some Author",
         location: "Berlin",
       },
