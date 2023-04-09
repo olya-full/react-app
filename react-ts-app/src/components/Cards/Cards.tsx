@@ -24,7 +24,7 @@ const Card = (props: ISearchResult & IUnsetMaxHeight) => {
       <div className="card-title">{props.title || "Unnamed Picture"}</div>
       <div className="card-img-wrap">
         <img
-          className={`card-img ${props.maxheight && props.maxheight}`}
+          className={`card-img${props.maxheight ? " " + props.maxheight : ""}`}
           alt="Picture."
           src={props.imageUrl}
         />

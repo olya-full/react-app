@@ -14,7 +14,7 @@ import { apiEndpoint } from "../App/App";
 export const SearchElem = (props: ISearchElemProps) => {
   const commonParams = {
     api_key: "4b621c2314e1aacd9186e7425c899a6b",
-    per_page: "80",
+    per_page: "100",
     page: "1",
     format: "json",
     nojsoncallback: "1",
