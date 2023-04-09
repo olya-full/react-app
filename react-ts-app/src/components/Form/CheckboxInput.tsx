@@ -15,11 +15,7 @@ export const CheckboxInput = ({ register, isError }: IInputProps) => {
           />
         </label>
       </div>
-      {isError === true ? (
-        <ErrorElement errorText="Please agree to post your book." />
-      ) : (
-        <ErrorElement />
-      )}
+      {isError ? <ErrorElement errorText="Please agree to post your book." /> : <ErrorElement />}
     </div>
   );
 };

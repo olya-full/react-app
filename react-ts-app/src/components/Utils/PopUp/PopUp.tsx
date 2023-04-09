@@ -9,7 +9,7 @@ interface IPopUpProps {
 
 export const PopUp = (props: IPopUpProps) => {
   React.useEffect(() => {
-    props.popUpFunc ? props.popUpFunc() : null;
+    props.popUpFunc && props.popUpFunc();
   });
 
   return (

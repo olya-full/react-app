@@ -1,0 +1,8 @@
+.loader-container,
+.loader-text {
+  font: inherit;
+}
+
+.loader-text {
+  margin-top: -15px;
+}

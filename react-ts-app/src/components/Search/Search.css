@@ -1,10 +1,18 @@
+.home-search-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .home-search {
   border: solid gray 1px;
   transition: 0.25s;
-  height: 35px;
+  height: 38px;
   width: 300px;
   border-radius: 10px;
   padding: 1px 5px;
+  margin: 10px;
+  font: inherit;
 }
 
 .home-search:focus {

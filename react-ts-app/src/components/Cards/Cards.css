@@ -1,8 +1,8 @@
 .cards {
-  margin: 30px;
+  margin: 30px 1%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, 23%);
+  gap: 20px 2%;
 }
 
 .card {
@@ -19,10 +19,16 @@
 
 .card-img {
   box-shadow: 0 0 10px gray;
-  width: auto;
-  height: 200px;
+  max-width: 100%;
+  max-height: 200px;
 }
 
 .card-title {
   font-weight: 600;
+  max-height: 30px;
+  overflow: hidden;
+}
+
+.unset-max-height {
+  max-height: 350px;
 }

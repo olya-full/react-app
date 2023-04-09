@@ -6,15 +6,6 @@ export interface IInputValue {
   inputValue: string;
 }
 
-export interface IBook {
-  title: string;
-  author: string;
-  img: string;
-  year: number;
-  desc: string;
-  genre: string;
-}
-
 export interface IButtonProps {
   buttonText: string;
   buttonType: "button" | "submit" | "reset" | undefined;
@@ -54,4 +45,84 @@ export interface IInputProps {
   register: UseFormRegister<IFormValues>;
   required: boolean;
   isError?: null | true;
+}
+
+export interface ISearchElemProps {
+  renderResults: (result: ISearchResult[]) => void;
+}
+
+export interface ICardsProps {
+  images: ISearchResult[];
+  cardsFunc?: (photo: any) => void; 
+}
+
+export interface ISearchResult {
+  id: string;
+  title: string;
+  imageUrl: string;
+  date?: string;
+  author?: string;
+  location?: string;
+}
+
+export interface IRequestParams {
+  method?: string;
+  text?: string;
+  photo_id?: string;
+  api_key: string;
+  per_page: string;
+  page: string;
+  format: string;
+  nojsoncallback: string;
+}
+
+interface IPhoto {
+  id: string;
+  owner: string;
+  secret: string;
+  server: string;
+  title: string;
+}
+
+export type IPhotosResponseJson = Promise<{
+    photos: {
+      page: number;
+      pages: number;
+      perpage: number;
+      total: number;
+      photo: IPhoto[];
+    };
+    stat: string;
+  }>
+
+
+export interface IPhotosResponse {
+  json(): IPhotosResponseJson
+}
+
+export interface IPhotoResponse {
+  json(): Promise<IPhotoResponseJson>;
+}
+
+export interface IPhotoResponseJson {
+  photo: {
+    id: string;
+    server: string;
+    secret: string;
+    title: {
+      _content: string;
+    };
+    dates: {
+      posted: string;
+    };
+    owner: {
+      realname: string;
+      location: string;
+    }
+  };
+  stat: string;
+}
+
+export interface IUnsetMaxHeight{
+  maxheight?: "unset-max-height";
 }

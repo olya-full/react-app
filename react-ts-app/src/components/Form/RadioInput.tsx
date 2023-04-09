@@ -23,7 +23,7 @@ const RadioInput = ({ register, isError }: IInputProps) => {
           );
         })}
       </fieldset>
-      {isError === true ? (
+      {isError ? (
         <ErrorElement errorText="Please choose how popular this book is." />
       ) : (
         <ErrorElement />
