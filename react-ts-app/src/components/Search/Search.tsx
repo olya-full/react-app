@@ -29,7 +29,6 @@ export const SearchElem = (props: ISearchElemProps) => {
     inputRef.current = inputValue;
   }, [inputValue]);
 
-  
   const searchPhotoReq: (text: string | undefined) => IPhotosResponseJson = async (text) => {
     const searchParams: IRequestParams = structuredClone(commonParams);
     searchParams.method = "flickr.photos.search";
@@ -69,7 +68,6 @@ export const SearchElem = (props: ISearchElemProps) => {
     return adaptedResult;
   };
 
-
   React.useEffect(() => {
     setHasLoaded(false);
     adaptResposeToCards(getRecentReq).then((data) => {
@@ -79,7 +77,6 @@ export const SearchElem = (props: ISearchElemProps) => {
 
     return () => localStorage.setItem("bestSearchValue", inputRef.current);
   }, []);
-
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

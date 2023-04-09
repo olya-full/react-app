@@ -7,21 +7,13 @@ interface IModalProps {
 }
 
 export const Modal = ({ children, modalFunc }: IModalProps) => {
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    console.log(event.target);
-    event.stopPropagation();
+  const handleClick = () => {
     modalFunc && modalFunc();
   };
 
   return (
-    <div
-      onClick={(event) => {
-        event.stopPropagation();
-        handleClick(event);
-      }}
-      className="modal-outer-container"
-    >
-      <div className="modal-inner-container">
+    <div onClick={handleClick} className="modal-outer-container">
+      <div onClick={(e) => e.stopPropagation()} className="modal-inner-container">
         <div className="modal-cross-container">
           <div className="modal-cross-wrap">
             <img onClick={handleClick} className="modal-cross-img" src="./cross.png" />
