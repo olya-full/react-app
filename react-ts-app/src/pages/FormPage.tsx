@@ -1,13 +1,16 @@
 import React from "react";
 
-
 import { CreatedCards } from "../components/CreatedCards/CreatedCards";
 import { Form } from "../components/Form/Form";
 import { PopUp } from "../components/Utils/PopUp/PopUp";
 import { INewCard } from "../types/types";
+import { addNewCard } from "../components/Store/Slicers";
+import { useAppDispatch, useAppSelector } from "../components/Store/TypedHooks";
 
 export const FormPage = () => {
-  const [cards, setCards] = React.useState<INewCard[]>([]);
+  const dispatchNewCard = useAppDispatch();
+
+  //const [cards, setCards] = React.useState<INewCard[]>([]);
   const [showPopup, setShowPopup] = React.useState(false);
 
   const togglePopup = () => {
@@ -19,7 +22,7 @@ export const FormPage = () => {
   };
 
   const renderCards = (newCard: INewCard) => {
-    setCards([...cards, newCard]);
+    dispatchNewCard(addNewCard(newCard));
     setShowPopup(true);
   };
 
@@ -28,7 +31,7 @@ export const FormPage = () => {
       <h1>Your Favourite Book</h1>
       <Form renderCards={renderCards} />
       {showPopup && <PopUp popUpText="Your input has beed saved!" popUpFunc={togglePopup} />}
-      <CreatedCards cards={cards} />
+      <CreatedCards cards={useAppSelector((state) => state.createdCards.cards)} />
     </>
   );
 };
