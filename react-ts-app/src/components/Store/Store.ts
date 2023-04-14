@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createdCardsSlice } from "./Slicers";
+import { createdCardsSlice, searchValueSlice } from "./Slicers";
 
 export const store = configureStore({
   reducer: {
     createdCards: createdCardsSlice.reducer,
+    searchValue: searchValueSlice.reducer,
   }
 })
 

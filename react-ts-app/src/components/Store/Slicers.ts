@@ -8,7 +8,7 @@ interface ICreatedCardsState {
 export const createdCardsSlice = createSlice({
   name: "createdCards",
   initialState: {
-    cards: []
+    cards: [],
   } as ICreatedCardsState,
   reducers: {
     addNewCard: (state, action: PayloadAction<INewCard>) => {
@@ -18,3 +18,18 @@ export const createdCardsSlice = createSlice({
 })
 
 export const { addNewCard } = createdCardsSlice.actions;
+
+export const searchValueSlice = createSlice({
+  name: "searchValue",
+  initialState: {
+    value: localStorage.getItem("bestSearchValue") || "",
+  },
+  reducers: {
+    updateSearchValue: (state, action: PayloadAction<string>) => {
+      state.value = action.payload;
+      localStorage.setItem("bestSearchValue", action.payload);
+    }
+  }
+})
+
+export const {updateSearchValue} = searchValueSlice.actions;

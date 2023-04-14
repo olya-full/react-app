@@ -10,8 +10,17 @@ import {
 } from "../../types/types";
 import { Loader } from "../Utils/Loader/Loader";
 import { apiEndpoint } from "../App/App";
+import { useAppDispatch, useAppSelector } from "../Store/TypedHooks";
+import { updateSearchValue } from "../Store/Slicers";
 
 export const SearchElem = (props: ISearchElemProps) => {
+  const dispatch = useAppDispatch();
+  const [hasLoaded, setHasLoaded] = React.useState(true);
+  const [inputValue, setInputValue] = React.useState(
+    useAppSelector((state) => state.searchValue.value)
+  );
+  const [noResults, setNoResults] = React.useState(false);
+
   const commonParams = {
     api_key: "4b621c2314e1aacd9186e7425c899a6b",
     per_page: "100",
@@ -20,14 +29,6 @@ export const SearchElem = (props: ISearchElemProps) => {
     nojsoncallback: "1",
     safe_search: "1",
   };
-  const [hasLoaded, setHasLoaded] = React.useState(true);
-  const [inputValue, setInputValue] = React.useState(localStorage.getItem("bestSearchValue") || "");
-  const [noResults, setNoResults] = React.useState(false);
-  const inputRef = React.useRef(inputValue);
-
-  React.useEffect(() => {
-    inputRef.current = inputValue;
-  }, [inputValue]);
 
   const searchPhotoReq: (text: string | undefined) => IPhotosResponseJson = async (text) => {
     const searchParams: IRequestParams = structuredClone(commonParams);
@@ -68,20 +69,8 @@ export const SearchElem = (props: ISearchElemProps) => {
     return adaptedResult;
   };
 
-  React.useEffect(() => {
+  const chooseRequestByValue = () => {
     setHasLoaded(false);
-    adaptResposeToCards(getRecentReq).then((data) => {
-      props.renderResults(data);
-      setHasLoaded(true);
-    });
-
-    return () => localStorage.setItem("bestSearchValue", inputRef.current);
-  }, []);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setHasLoaded(false);
-    setNoResults(false);
 
     inputValue
       ? adaptResposeToCards(searchPhotoReq, inputValue).then((data) => {
@@ -94,6 +83,17 @@ export const SearchElem = (props: ISearchElemProps) => {
           props.renderResults(data);
           setHasLoaded(true);
         });
+  };
+
+  React.useEffect(() => {
+    chooseRequestByValue();
+  }, []);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(updateSearchValue(inputValue));
+    setNoResults(false);
+    chooseRequestByValue();
   };
 
   const updateInputValue = (event: ChangeEvent<HTMLInputElement>) => {

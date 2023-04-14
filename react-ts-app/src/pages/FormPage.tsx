@@ -8,9 +8,7 @@ import { addNewCard } from "../components/Store/Slicers";
 import { useAppDispatch, useAppSelector } from "../components/Store/TypedHooks";
 
 export const FormPage = () => {
-  const dispatchNewCard = useAppDispatch();
-
-  //const [cards, setCards] = React.useState<INewCard[]>([]);
+  const dispatch = useAppDispatch();
   const [showPopup, setShowPopup] = React.useState(false);
 
   const togglePopup = () => {
@@ -22,7 +20,7 @@ export const FormPage = () => {
   };
 
   const renderCards = (newCard: INewCard) => {
-    dispatchNewCard(addNewCard(newCard));
+    dispatch(addNewCard(newCard));
     setShowPopup(true);
   };
 
