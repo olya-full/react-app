@@ -17,3 +17,4 @@ export const createdCardsSlice = createSlice({
   }
 })
 
+export const { addNewCard } = createdCardsSlice.actions;
