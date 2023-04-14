@@ -11,7 +11,7 @@ import {
 import { Loader } from "../Utils/Loader/Loader";
 import { apiEndpoint } from "../App/App";
 import { useAppDispatch, useAppSelector } from "../Store/TypedHooks";
-import { updateSearchValue } from "../Store/Slicers";
+import { updateSearchValue } from "../Store/Slices/searchValueSlice";
 
 export const SearchElem = (props: ISearchElemProps) => {
   const dispatch = useAppDispatch();

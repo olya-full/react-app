@@ -4,7 +4,7 @@ import { CreatedCards } from "../components/CreatedCards/CreatedCards";
 import { Form } from "../components/Form/Form";
 import { PopUp } from "../components/Utils/PopUp/PopUp";
 import { INewCard } from "../types/types";
-import { addNewCard } from "../components/Store/Slicers";
+import { addNewCard } from "../components/Store/Slices/createdCardsSlice";
 import { useAppDispatch, useAppSelector } from "../components/Store/TypedHooks";
 
 export const FormPage = () => {
