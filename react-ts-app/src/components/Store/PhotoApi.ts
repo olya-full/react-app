@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IPhotosResponse, IPhotosResponseJson, ISearchResult } from "../../types/types";
+import { IPhotoResponseJson, IPhotosResponseJson, ISearchResult } from "../../types/types";
 
 const commonParams = {
   api_key: "4b621c2314e1aacd9186e7425c899a6b",
@@ -7,8 +7,14 @@ const commonParams = {
   page: "1",
   format: "json",
   nojsoncallback: "1",
-  safe_search: "1",
-  method: "flickr.photos.getRecent"
+  safe_search: "1"
+}
+
+const singleCardParams = {
+  api_key: "4b621c2314e1aacd9186e7425c899a6b",
+  format: "json",
+  nojsoncallback: "1",
+  method: "flickr.photos.getInfo",
 }
 
 export const photoApi = createApi({
@@ -16,10 +22,10 @@ export const photoApi = createApi({
   tagTypes: ["searchResults"],
   baseQuery: fetchBaseQuery({baseUrl: "https://www.flickr.com/services/rest"}),
   endpoints: (build) => ({
-    getRecentPics: build.query<ISearchResult[], void>({
-      query: () => {
+    getSearchResults: build.query<ISearchResult[], string>({
+      query: (value: string = "a") => {
         return {
-          url: `/?`,
+          url: `/?method=flickr.photos.search&text=${value}`,
           params: commonParams,
         }
       },
@@ -33,17 +39,31 @@ export const photoApi = createApi({
               imageUrl: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`,
             });
           });
-          console.log(adaptedResult)
 
         return adaptedResult;
       },
       providesTags: ["searchResults"]
     }),
-    /*
-    getSearchResults: build.query({
-      query: () => `/?method=flickr.photos.search&${JSON.parse(JSON.stringify(commonParams))}`
-    })*/
+
+    getOnePic: build.query<ISearchResult, string>({
+      query: (id: string) => {
+        return {
+          url: `/?photo_id=${id}`,
+          params: singleCardParams,
+        }
+      },
+      transformResponse: (resData: IPhotoResponseJson) => {
+        return {
+          id: resData.photo.id,
+          title: resData.photo.title._content,
+          imageUrl: `https://live.staticflickr.com/${resData.photo.server}/${resData.photo.id}_${resData.photo.secret}.jpg`,
+          date: resData.photo.dates.posted,
+          author: resData.photo.owner.realname,
+          location: resData.photo.owner.location,
+        };
+      }
+    })
   })
 })
 
-export const { useGetRecentPicsQuery } = photoApi;
+export const { useGetSearchResultsQuery } = photoApi;

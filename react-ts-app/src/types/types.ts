@@ -1,3 +1,4 @@
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { UseFormRegister } from "react-hook-form";
 
 export type IEmptyProps = Record<string, never>
@@ -48,7 +49,7 @@ export interface IInputProps {
 }
 
 export interface ISearchElemProps {
-  renderResults: (result: ISearchResult[]) => void;
+  setValue: (value: string) => void;
 }
 
 export interface ICardsProps {
