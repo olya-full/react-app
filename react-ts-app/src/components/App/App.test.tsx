@@ -2,7 +2,7 @@ import { describe, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 
-import { WrappedApp, App } from "./App";
+import { App } from "./App";
 import { Provider } from "react-redux";
 import { store } from "../Store/Store";
 
