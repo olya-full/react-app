@@ -17,7 +17,7 @@ import { useGetRecentPicsQuery } from "../Store/PhotoApi";
 
 export const SearchElem = (props: ISearchElemProps) => {
   const dispatch = useAppDispatch();
-  const {data = []} = useGetRecentPicsQuery();
+
   const [hasLoaded, setHasLoaded] = React.useState(true);
   const [inputValue, setInputValue] = React.useState(
     useAppSelector((state) => state.searchValue.value)
@@ -73,25 +73,19 @@ export const SearchElem = (props: ISearchElemProps) => {
   }; */
 
   const chooseRequestByValue = () => {
+    /*
+    console.log("data in search", data)
 
-    inputValue
-      ? console.log("no invut value")
-      /*adaptResposeToCards(searchPhotoReq, inputValue).then((data) => {
-          props.renderResults(data);
-          setHasLoaded(true);
-
-          if (!data.length) setNoResults(true);
-        }) */
-      : props.renderResults(data);
+      props.renderResults(data);
       /*adaptResposeToCards(searchPhotoReq).then((data) => {
           props.renderResults(data);
           setHasLoaded(true);
         }); */
   };
-
+/*
   React.useEffect(() => {
     chooseRequestByValue();
-  }, []);
+  }, [data]); */
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -116,7 +110,7 @@ export const SearchElem = (props: ISearchElemProps) => {
         />
         <Button buttonText="Search" buttonType="submit" />
       </form>
-      {!hasLoaded && <Loader />}
+      
       {noResults && <div>Nothing is found.</div>}
     </>
   );

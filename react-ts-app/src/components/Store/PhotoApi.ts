@@ -8,6 +8,7 @@ const commonParams = {
   format: "json",
   nojsoncallback: "1",
   safe_search: "1",
+  method: "flickr.photos.getRecent"
 }
 
 export const photoApi = createApi({
@@ -18,7 +19,7 @@ export const photoApi = createApi({
     getRecentPics: build.query<ISearchResult[], void>({
       query: () => {
         return {
-          url: `/?method=flickr.photos.getRecent`,
+          url: `/?`,
           params: commonParams,
         }
       },
@@ -36,19 +37,12 @@ export const photoApi = createApi({
 
         return adaptedResult;
       },
-      providesTags: (result) => [
-        result
-          ? [
-              ...result.map(({ id }) => ({ type: "searchResults" as const, id })),
-              { type: "searchResults", id: 'LIST' },
-            ]
-          : [{ type: "searchResults", id: 'LIST' }],
-      ]
+      providesTags: ["searchResults"]
     }),
-    
+    /*
     getSearchResults: build.query({
       query: () => `/?method=flickr.photos.search&${JSON.parse(JSON.stringify(commonParams))}`
-    })
+    })*/
   })
 })
 
