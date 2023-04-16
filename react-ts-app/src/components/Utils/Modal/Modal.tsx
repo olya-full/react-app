@@ -1,12 +1,16 @@
-import { ReactNode } from "react";
 import "./Modal.css";
+import { useGetOnePicQuery } from "../../Store/PhotoApi";
+import { Card } from "../../Cards/Cards";
+import { Loader } from "../Loader/Loader";
 
 interface IModalProps {
-  children: ReactNode;
   modalFunc?: () => void;
+  id?: string;
 }
 
-export const Modal = ({ children, modalFunc }: IModalProps) => {
+export const Modal = ({ modalFunc, id }: IModalProps) => {
+  const { data, isFetching } = useGetOnePicQuery(id || "");
+
   const handleClick = () => {
     modalFunc && modalFunc();
   };
@@ -19,7 +23,8 @@ export const Modal = ({ children, modalFunc }: IModalProps) => {
             <img onClick={handleClick} className="modal-cross-img" src="./cross.png" />
           </div>
         </div>
-        {children}
+        {isFetching && <Loader />}
+        {data && <Card maxheight="unset-max-height" {...data} />}
       </div>
     </div>
   );

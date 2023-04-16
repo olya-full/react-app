@@ -66,4 +66,4 @@ export const photoApi = createApi({
   })
 })
 
-export const { useGetSearchResultsQuery } = photoApi;
+export const { useGetSearchResultsQuery, useGetOnePicQuery } = photoApi;
