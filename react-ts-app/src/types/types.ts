@@ -84,7 +84,7 @@ interface IPhoto {
   title: string;
 }
 
-export type IPhotosResponseJson = Promise<{
+export type IPhotosResponseJson = {
     photos: {
       page: number;
       pages: number;
@@ -93,11 +93,11 @@ export type IPhotosResponseJson = Promise<{
       photo: IPhoto[];
     };
     stat: string;
-  }>
+  }
 
 
 export interface IPhotosResponse {
-  json(): IPhotosResponseJson
+  json(): Promise<IPhotosResponseJson>
 }
 
 export interface IPhotoResponse {

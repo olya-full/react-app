@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent } from "react";
+
 import "./Search.css";
 import Button from "../Utils/Button/Button";
 import {
@@ -12,9 +13,11 @@ import { Loader } from "../Utils/Loader/Loader";
 import { apiEndpoint } from "../App/App";
 import { useAppDispatch, useAppSelector } from "../Store/TypedHooks";
 import { updateSearchValue } from "../Store/Slices/searchValueSlice";
+import { useGetRecentPicsQuery } from "../Store/PhotoApi";
 
 export const SearchElem = (props: ISearchElemProps) => {
   const dispatch = useAppDispatch();
+  const {data = []} = useGetRecentPicsQuery();
   const [hasLoaded, setHasLoaded] = React.useState(true);
   const [inputValue, setInputValue] = React.useState(
     useAppSelector((state) => state.searchValue.value)
@@ -30,7 +33,7 @@ export const SearchElem = (props: ISearchElemProps) => {
     safe_search: "1",
   };
 
-  const searchPhotoReq: (text: string | undefined) => IPhotosResponseJson = async (text) => {
+  const searchPhotoReq: (text: string | undefined) => Promise<IPhotosResponseJson> = async (text) => {
     const searchParams: IRequestParams = structuredClone(commonParams);
     searchParams.method = "flickr.photos.search";
     searchParams.text = text;
@@ -40,7 +43,7 @@ export const SearchElem = (props: ISearchElemProps) => {
     );
     return await res.json();
   };
-
+/*
   const getRecentReq = async () => {
     const searchParams: IRequestParams = structuredClone(commonParams);
     searchParams.method = "flickr.photos.getRecent";
@@ -49,10 +52,10 @@ export const SearchElem = (props: ISearchElemProps) => {
       apiEndpoint + new URLSearchParams(JSON.parse(JSON.stringify(searchParams)))
     );
     return await res.json();
-  };
+  }; 
 
   const adaptResposeToCards = async (
-    func: (param?: string | undefined) => IPhotosResponseJson,
+    func: (param?: string | undefined) => Promise<IPhotosResponseJson>,
     innerParam?: string | undefined
   ) => {
     const adaptedResult: ISearchResult[] = [];
@@ -67,22 +70,23 @@ export const SearchElem = (props: ISearchElemProps) => {
     });
 
     return adaptedResult;
-  };
+  }; */
 
   const chooseRequestByValue = () => {
-    setHasLoaded(false);
 
     inputValue
-      ? adaptResposeToCards(searchPhotoReq, inputValue).then((data) => {
+      ? console.log("no invut value")
+      /*adaptResposeToCards(searchPhotoReq, inputValue).then((data) => {
           props.renderResults(data);
           setHasLoaded(true);
 
           if (!data.length) setNoResults(true);
-        })
-      : adaptResposeToCards(getRecentReq).then((data) => {
+        }) */
+      : props.renderResults(data);
+      /*adaptResposeToCards(searchPhotoReq).then((data) => {
           props.renderResults(data);
           setHasLoaded(true);
-        });
+        }); */
   };
 
   React.useEffect(() => {
