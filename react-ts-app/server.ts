@@ -2,14 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
-
-  /**
-   * @@type { (url: string, context?: object) => ReactDOMServer.PipeableStream};
-   */
-
-  /**
-   * @type {import('vite').ViteDevServer}
-   */
+// @ts-ignore
 import render from "./dist/server/entry-server.js";
 import { ViteDevServer } from "vite";
 
