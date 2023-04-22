@@ -23,7 +23,7 @@ export function App() {
   );
 }
 
-export function WrappedApp() {
+export default function WrappedApp() {
   return (
     <BrowserRouter>
       <Provider store={store}>
