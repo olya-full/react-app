@@ -2,7 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from 'url';
-import { render } from "./dist/server/entry-server.js";
+import render from "./dist/server/entry-server.js";
 
 /* 
 import pkg from '@reduxjs/toolkit';
@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const isTest = process.env.VITEST
 
-export async function createServer(
+async function createServer(
   root = process.cwd(),
   isProd = process.env.NODE_ENV === 'production',
   hmrPort,
@@ -31,7 +31,7 @@ export async function createServer(
   /**
    * @type {import('vite').ViteDevServer}
    */
-  let vite
+  let vite;
   if (!isProd) {
     vite = await (
       await import('vite')
@@ -65,31 +65,50 @@ export async function createServer(
 
   app.use('*', async (req, res) => {
     try {
-      const url = req.originalUrl
+      const url = req.originalUrl;
 
-      let template, render
+      let template
       if (!isProd) {
         // always read fresh template in dev
         template = fs.readFileSync(resolve('index.html'), 'utf-8')
         template = await vite.transformIndexHtml(url, template)
-        render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render
+        
+        const html = template.split(`<!--app-html-->`);
+
+        const stream = render(url, {
+          onShellReady() {
+            res.write(html[0]);
+            stream.pipe(res);
+          },
+          onAllReady() {
+            res.write(html[0] + html[1]);
+            res.end();
+          },
+        });
+        //
       } else {
         template = indexProd
+        //render = (await import('./dist/server/entry-server.js'));
+
+        const html = template.split(`<!--app-html-->`);
+
+        const { pipe } = render(url, {
+          onShellReady() {
+            res.write(html[0]);
+            pipe(res);
+          },
+          onAllReady() {
+            res.write(html[0] + html[1]);
+            res.end();
+          },
+        });
         // @ts-ignore
-        render = (await import('./dist/server/entry-server.js')).render
+        
       }
 
-      const context = {}
-      const appHtml = render(url, context)
-
-      if (context.url) {
-        // Somewhere a `<Redirect>` was rendered
-        return res.redirect(301, context.url)
-      }
-
-      const html = template.replace(`<!--app-html-->`, appHtml)
-
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+      //const appHtml = render(url);
+      
+      //res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
       !isProd && vite.ssrFixStacktrace(e)
       console.log(e.stack)

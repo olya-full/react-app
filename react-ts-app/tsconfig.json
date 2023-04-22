@@ -16,6 +16,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "./src/**/*", ".eslintrc.json", "setupTests.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["server.ts", "src", "./src/**/*", ".eslintrc.json", "setupTests.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true
+  }
 }

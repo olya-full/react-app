@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INewCard } from "../../../types/types";
 
-interface ICreatedCardsState {
+export interface ICreatedCardsState {
   cards: INewCard[];
 }
 
