@@ -13,6 +13,6 @@ const render = (url: string, context?: object) => {
     context
   );
   return stream;
-}
+};
 
 export default render;
