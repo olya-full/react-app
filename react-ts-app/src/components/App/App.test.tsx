@@ -1,12 +1,20 @@
 import { describe, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 
-import { WrappedApp, App } from "./App";
+import { App } from "./App";
+import { Provider } from "react-redux";
+import { store } from "../Store/Store";
 
 describe("Basic App", () => {
   it("Renders Home", () => {
-    render(<WrappedApp />);
+    render(
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    );
     expect(
       screen.getByRole("heading", {
         level: 1,
@@ -17,7 +25,9 @@ describe("Basic App", () => {
   it("Renders About Us if on About Us page", () => {
     render(
       <MemoryRouter initialEntries={["/about"]}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
     expect(
@@ -30,7 +40,9 @@ describe("Basic App", () => {
   it("Renders Your Favourite Book if on Form page", () => {
     render(
       <MemoryRouter initialEntries={["/form"]}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
     expect(

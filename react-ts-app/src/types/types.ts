@@ -1,3 +1,4 @@
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { UseFormRegister } from "react-hook-form";
 
 export type IEmptyProps = Record<string, never>
@@ -48,7 +49,7 @@ export interface IInputProps {
 }
 
 export interface ISearchElemProps {
-  renderResults: (result: ISearchResult[]) => void;
+  setValue: (value: string) => void;
 }
 
 export interface ICardsProps {
@@ -84,7 +85,7 @@ interface IPhoto {
   title: string;
 }
 
-export type IPhotosResponseJson = Promise<{
+export type IPhotosResponseJson = {
     photos: {
       page: number;
       pages: number;
@@ -93,11 +94,11 @@ export type IPhotosResponseJson = Promise<{
       photo: IPhoto[];
     };
     stat: string;
-  }>
+  }
 
 
 export interface IPhotosResponse {
-  json(): IPhotosResponseJson
+  json(): Promise<IPhotosResponseJson>
 }
 
 export interface IPhotoResponse {

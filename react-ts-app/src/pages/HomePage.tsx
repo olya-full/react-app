@@ -1,20 +1,27 @@
 import React from "react";
+
 import { Cards } from "../components/Cards/Cards";
 import { SearchElem } from "../components/Search/Search";
-import { ISearchResult } from "../types/types";
+import { useGetSearchResultsQuery } from "../components/Store/PhotoApi";
+import { Loader } from "../components/Utils/Loader/Loader";
+import { useAppSelector } from "../components/Store/TypedHooks";
 
 export const Home = () => {
-  const [searchResults, setSearchResults] = React.useState<ISearchResult[]>([]);
+  const [searchValue, setSearchValue] = React.useState<string>(
+    useAppSelector((state) => state.searchValue.value)
+  );
+  const { data = [], isFetching } = useGetSearchResultsQuery(searchValue ? searchValue : "a");
 
-  const renderSeachResults = (newResult: ISearchResult[]) => {
-    setSearchResults([...newResult]);
+  const setValue = (value: string) => {
+    setSearchValue(value);
   };
 
   return (
     <>
       <h1>Picture Search</h1>
-      <SearchElem renderResults={renderSeachResults} />
-      {searchResults && <Cards images={searchResults} />}
+      <SearchElem setValue={setValue} />
+      {isFetching && <Loader />}
+      {data && <Cards images={data} />}
     </>
   );
 };
