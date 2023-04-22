@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import "./App.css";
@@ -8,6 +8,7 @@ import { Home } from "../../pages/HomePage";
 import { AboutUs } from "../../pages/AboutPage";
 import { Header } from "../Header/Header";
 import { FormPage } from "../../pages/FormPage";
+import { useEffect, useState } from "react";
 
 export function App() {
   return (
@@ -24,11 +25,16 @@ export function App() {
 }
 
 export default function WrappedApp() {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <BrowserRouter>
+    isMounted && (
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
+    )
   );
 }

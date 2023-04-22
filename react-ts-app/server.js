@@ -4,42 +4,106 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { render } from "./dist/server/entry-server.js";
 
+/* 
+import pkg from '@reduxjs/toolkit';
+const { createSlice, configureStore } = pkg;
+import pkg1 from '@reduxjs/toolkit/dist/query/react/index.js';
+const { createApi, fetchBaseQuery } = pkg1;
+*/
 
-///////////////////////////////////
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const PORT = process.env.PORT || 5173;
+const isTest = process.env.VITEST
 
-const html = fs
-  .readFileSync(path.resolve(__dirname, "./dist/client/index.html"))
-  .toString();
+export async function createServer(
+  root = process.cwd(),
+  isProd = process.env.NODE_ENV === 'production',
+  hmrPort,
+) {
+  const resolve = (p) => path.resolve(__dirname, p)
 
-const parts = html.split("<!--app-html-->");
+  const indexProd = isProd
+    ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8')
+    : ''
 
-const app = express();
+  const app = express()
 
-app.use(
-  "/assets",
-  express.static(path.resolve(__dirname, "./dist/client/assets"))
-);
-app.use((req, res) => {
-  res.write(parts[0]);
-  const stream = render(req.url, {
-    onShellReady() {
-      stream.pipe(res);
-    },
-    onShellError() {
-      // do error handling
-    },
-    onAllReady() {
-      res.write(parts[1]);
-      res.end();
-    },
-    onError(err) {
-      console.error(err);
-    },
-  });
-});
+  /**
+   * @type {import('vite').ViteDevServer}
+   */
+  let vite
+  if (!isProd) {
+    vite = await (
+      await import('vite')
+    ).createServer({
+      root,
+      logLevel: isTest ? 'error' : 'info',
+      server: {
+        middlewareMode: true,
+        watch: {
+          // During tests we edit the files too fast and sometimes chokidar
+          // misses change events, so enforce polling for consistency
+          usePolling: true,
+          interval: 100,
+        },
+        hmr: {
+          port: hmrPort,
+        },
+      },
+      appType: 'custom',
+    })
+    // use vite's connect instance as middleware
+    app.use(vite.middlewares)
+  } else {
+    app.use((await import('compression')).default())
+    app.use(
+      (await import('serve-static')).default(resolve('dist/client'), {
+        index: false,
+      }),
+    )
+  }
 
-console.log(`listening on http://localhost:${PORT}`);
-app.listen(PORT);
+  app.use('*', async (req, res) => {
+    try {
+      const url = req.originalUrl
+
+      let template, render
+      if (!isProd) {
+        // always read fresh template in dev
+        template = fs.readFileSync(resolve('index.html'), 'utf-8')
+        template = await vite.transformIndexHtml(url, template)
+        render = (await vite.ssrLoadModule('/src/entry-server.tsx')).render
+      } else {
+        template = indexProd
+        // @ts-ignore
+        render = (await import('./dist/server/entry-server.js')).render
+      }
+
+      const context = {}
+      const appHtml = render(url, context)
+
+      if (context.url) {
+        // Somewhere a `<Redirect>` was rendered
+        return res.redirect(301, context.url)
+      }
+
+      const html = template.replace(`<!--app-html-->`, appHtml)
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+    } catch (e) {
+      !isProd && vite.ssrFixStacktrace(e)
+      console.log(e.stack)
+      res.status(500).end(e.stack)
+    }
+  })
+
+  return { app, vite }
+}
+
+if (!isTest) {
+  createServer().then(({ app }) =>
+    app.listen(5173, () => {
+      console.log('http://localhost:5173')
+    }),
+  )
+}
