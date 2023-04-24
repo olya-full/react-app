@@ -60,25 +60,5 @@
     "vite": "^4.2.0",
     "vite-plugin-istanbul": "^4.0.1",
     "vitest": "^0.29.3"
-  },
-  
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "extension": [
-      ".tsx"
-    ],
-    "include": [
-      "src/**/*.tsx"
-    ],
-    "exclude": [
-      "cypress/",
-      "node_modules/",
-      "dist/"
-    ],
-    "reporter": [
-      "html"
-    ],
-    "report-dir": "coverage",
-    "all": true
   }
 }
