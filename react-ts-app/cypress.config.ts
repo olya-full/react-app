@@ -7,9 +7,8 @@ export default defineConfig({
       codeCoverageTask(on, config);
       return config;
     },
-    baseUrl: "http://localhost:5173/"
+    baseUrl: "http://localhost:5173/",
   },
   video: false,
-  fixturesFolder: false,
   screenshotOnRunFailure: false,
 });
