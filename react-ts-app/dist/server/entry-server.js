@@ -1,5 +1,5 @@
 import * as jsxRuntime from "react/jsx-runtime";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Link, NavLink, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector, Provider } from "react-redux";
@@ -464,11 +464,7 @@ function App() {
   ] });
 }
 function WrappedApp() {
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-  return isMounted && /* @__PURE__ */ jsx(Provider, { store, children: /* @__PURE__ */ jsx(App, {}) });
+  return /* @__PURE__ */ jsx(Provider, { store, children: /* @__PURE__ */ jsx(App, {}) });
 }
 const render = (url, context) => {
   const stream = ReactDOMServer.renderToPipeableStream(

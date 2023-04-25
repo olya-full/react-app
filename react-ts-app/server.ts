@@ -69,7 +69,6 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
             res.end();
           },
         });
-        //
       } else {
         template = indexProd;
         const html = template.split("<!--app-html-->");
