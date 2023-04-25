@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import codeCoverageTask from '@cypress/code-coverage/task';
+import codeCoverageTask from "@cypress/code-coverage/task";
 
 export default defineConfig({
   e2e: {
@@ -7,7 +7,7 @@ export default defineConfig({
       codeCoverageTask(on, config);
       return config;
     },
-    baseUrl: "http://localhost:5173/"
+    baseUrl: "http://localhost:5173/",
   },
   video: false,
   fixturesFolder: false,

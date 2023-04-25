@@ -13,8 +13,8 @@ export const createdCardsSlice = createSlice({
   reducers: {
     addNewCard: (state, action: PayloadAction<INewCard>) => {
       state.cards.push(action.payload);
-    }
-  }
-})
+    },
+  },
+});
 
 export const { addNewCard } = createdCardsSlice.actions;
