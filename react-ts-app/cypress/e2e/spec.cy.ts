@@ -85,6 +85,13 @@ describe("The Home Page contains operational Search", () => {
   });
 });
 
+describe("Cards components are correct", () => {
+  it("There are cards on Home page", () => {
+    cy.visit("/");
+    cy.get(".cards").should("exist");
+  });
+});
+
 describe("Basic Layout is correct", () => {
   it("There is header", () => {
     cy.visit("/");
@@ -120,5 +127,9 @@ describe("Basic Layout is correct", () => {
   it("Form must be below the Form page title", () => {
     cy.visit("/form");
     cy.get(".form-form").should("be.visible");
+  });
+
+  it("Just a test to remove page load on coverage saving", () => {
+    expect(true).to.equal(true);
   });
 });
