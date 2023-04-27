@@ -10,7 +10,7 @@ export const store = configureStore({
     [photoApi.reducerPath]: photoApi.reducer,
   },
   middleware: (getDeafultMiddleware) => getDeafultMiddleware().concat(photoApi.middleware),
-})
+});
 
 export type IRootState = ReturnType<typeof store.getState>;
 export type IRootDispatch = typeof store.dispatch;

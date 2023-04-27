@@ -7,42 +7,42 @@ const commonParams = {
   page: "1",
   format: "json",
   nojsoncallback: "1",
-  safe_search: "1"
-}
+  safe_search: "1",
+};
 
 const singleCardParams = {
   api_key: "4b621c2314e1aacd9186e7425c899a6b",
   format: "json",
   nojsoncallback: "1",
   method: "flickr.photos.getInfo",
-}
+};
 
 export const photoApi = createApi({
   reducerPath: "api",
   tagTypes: ["searchResults"],
-  baseQuery: fetchBaseQuery({baseUrl: "https://www.flickr.com/services/rest"}),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://www.flickr.com/services/rest" }),
   endpoints: (build) => ({
     getSearchResults: build.query<ISearchResult[], string>({
-      query: (value: string = "a") => {
+      query: (value = "a") => {
         return {
           url: `/?method=flickr.photos.search&text=${value}`,
           params: commonParams,
-        }
+        };
       },
       transformResponse: (res: IPhotosResponseJson) => {
         const adaptedResult: ISearchResult[] = [];
 
         res.photos.photo.forEach((item) => {
-            adaptedResult.push({
-              id: item.id,
-              title: item.title,
-              imageUrl: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`,
-            });
+          adaptedResult.push({
+            id: item.id,
+            title: item.title,
+            imageUrl: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`,
           });
+        });
 
         return adaptedResult;
       },
-      providesTags: ["searchResults"]
+      providesTags: ["searchResults"],
     }),
 
     getOnePic: build.query<ISearchResult, string>({
@@ -50,7 +50,7 @@ export const photoApi = createApi({
         return {
           url: `/?photo_id=${id}`,
           params: singleCardParams,
-        }
+        };
       },
       transformResponse: (resData: IPhotoResponseJson) => {
         return {
@@ -61,9 +61,9 @@ export const photoApi = createApi({
           author: resData.photo.owner.realname,
           location: resData.photo.owner.location,
         };
-      }
-    })
-  })
-})
+      },
+    }),
+  }),
+});
 
 export const { useGetSearchResultsQuery, useGetOnePicQuery } = photoApi;

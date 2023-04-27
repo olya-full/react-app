@@ -1,7 +1,6 @@
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 import { UseFormRegister } from "react-hook-form";
 
-export type IEmptyProps = Record<string, never>
+export type IEmptyProps = Record<string, never>;
 
 export interface IInputValue {
   inputValue: string;
@@ -54,7 +53,7 @@ export interface ISearchElemProps {
 
 export interface ICardsProps {
   images: ISearchResult[];
-  cardsFunc?: (photo: any) => void; 
+  cardsFunc?: (photo: Blob) => void;
 }
 
 export interface ISearchResult {
@@ -86,19 +85,18 @@ interface IPhoto {
 }
 
 export type IPhotosResponseJson = {
-    photos: {
-      page: number;
-      pages: number;
-      perpage: number;
-      total: number;
-      photo: IPhoto[];
-    };
-    stat: string;
-  }
-
+  photos: {
+    page: number;
+    pages: number;
+    perpage: number;
+    total: number;
+    photo: IPhoto[];
+  };
+  stat: string;
+};
 
 export interface IPhotosResponse {
-  json(): Promise<IPhotosResponseJson>
+  json(): Promise<IPhotosResponseJson>;
 }
 
 export interface IPhotoResponse {
@@ -119,11 +117,11 @@ export interface IPhotoResponseJson {
     owner: {
       realname: string;
       location: string;
-    }
+    };
   };
   stat: string;
 }
 
-export interface IUnsetMaxHeight{
+export interface IUnsetMaxHeight {
   maxheight?: "unset-max-height";
 }

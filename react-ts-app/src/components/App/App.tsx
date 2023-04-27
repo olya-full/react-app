@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import "./App.css";
@@ -23,12 +23,10 @@ export function App() {
   );
 }
 
-export function WrappedApp() {
+export default function WrappedApp() {
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
   );
 }
